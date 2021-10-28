@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <title>Tire Seu Time</title>
+    <style>
+        body{
+            background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/12a43122925791.5631a88c1239d.png'); 
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="menutopo">
+        <div class="container">
+
+            <h1>Sitezão do Kauezão</h1>
+        </div>
+        <span class="textolink">
+            <a class="acor" href="index.html">Home</a>
+            <a href="tirar-time.html">Tirar Times</a>
+            <a href="sorteios.html">Sorteios</a>
+            <a href="login.html" style="float: right;">Login</a>    
+        </span>
+    </div>
+
+
+    <div class="container2">
+        <div class="content">
+
+            <h2>Sorteie 2 Times Entre Seus Amigos:</h2><br>
+<input type="text" id="n1" placeholder="Jogador 1">
+<input type="text" id="n2" placeholder="Jogador 2"><br>
+<input type="text" id="n3" placeholder="Jogador 3">
+<input type="text" id="n4" placeholder="Jogador 4"><br>
+<input type="text" id="n5" placeholder="Jogador 5">
+<input type="text" id="n6" placeholder="Jogador 6"><br>
+<input type="text" id="n7" placeholder="Jogador 7">
+<input type="text" id="n8" placeholder="Jogador 8"><br>
+<input type="text" id="n9" placeholder="Jogador 9">
+<input type="text" id="n10" placeholder="Jogador 10"><br>
+<button onclick="ver()">Tirar Time</button><br><br><br>
+<div id="results">
+<div id="resultados"></div>
+<div id="resultados1"></div>
+</div>
+</div></div>
+</body>
+</html>
+<script>
+    var time1 = [];
+    var time2 = [];
+    var numeros = [];
+    var aleatorio = 0;
+    var i = 0;
+    var seleca1 = [];
+    var seleca2 = [];
+    function ver() {
+
+
+        while (i < 10) {
+
+            aleatorio = Math.floor(Math.random() * 10 + 1);
+
+            if (numeros.includes(aleatorio) == false) {
+                numeros.push(aleatorio);
+                i++;
+            }
+
+        };
+        time1.push(numeros[0]);
+        time1.push(numeros[1]);
+        time1.push(numeros[2]);
+        time1.push(numeros[3]);
+        time1.push(numeros[4]);
+        time2.push(numeros[5]);
+        time2.push(numeros[6]);
+        time2.push(numeros[7]);
+        time2.push(numeros[8]);
+        time2.push(numeros[9]);
+
+        if (time1.includes(1)) {
+            seleca1.push(n1.value);
+        } else {
+            seleca2.push(n1.value);
+        }
+
+        if (time1.includes(2)) {
+            seleca1.push(n2.value);
+        } else {
+            seleca2.push(n2.value);
+        }
+
+        if (time1.includes(3)) {
+            seleca1.push(n3.value);
+        } else {
+            seleca2.push(n3.value);
+        }
+
+        if (time1.includes(4)) {
+            seleca1.push(n4.value);
+        } else {
+            seleca2.push(n4.value);
+        }
+
+        if (time1.includes(5)) {
+            seleca1.push(n5.value);
+        } else {
+            seleca2.push(n5.value);
+        }
+
+        if (time1.includes(6)) {
+            seleca1.push(n6.value);
+        } else {
+            seleca2.push(n6.value);
+        }
+
+        if (time1.includes(7)) {
+            seleca1.push(n7.value);
+        } else {
+            seleca2.push(n7.value);
+        }
+
+        if (time1.includes(8)) {
+            seleca1.push(n8.value);
+        } else {
+            seleca2.push(n8.value);
+        }
+
+        if (time1.includes(9)) {
+            seleca1.push(n9.value);
+        } else {
+            seleca2.push(n9.value);
+        }
+
+        if (time1.includes(10)) {
+            seleca1.push(n10.value);
+        } else {
+            seleca2.push(n10.value);
+        }
+        resultados.innerHTML = (`<h3>Time 1</h3><br>
+    ${seleca1[0]}<br>
+    ${seleca1[1]}<br>
+    ${seleca1[2]}<br>
+    ${seleca1[3]}<br>
+    ${seleca1[4]}<br>
+    `);
+
+    
+
+    resultados1.innerHTML = (`<h3>Time 2</h3><br>
+    ${seleca2[0]}<br>
+    ${seleca2[1]}<br>
+    ${seleca2[2]}<br>
+    ${seleca2[3]}<br>
+    ${seleca2[4]}<br>
+    `);
+
+
+    time1 = [];
+        time2 = [];
+        numeros = [];
+        aleatorio = 0;
+        i = 0;
+        seleca1 = [];
+        seleca2 = [];
+
+    }
+</script>

@@ -1,0 +1,300 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'roboto';
+}
+
+.menutopo {
+    background-image: url('https://img.freepik.com/free-vector/dark-hexagonal-background-with-gradient-color_79603-1409.jpg?size=626&ext=jpg');
+    text-align: center;
+    font-size: 75%;
+    height: 50px;
+    width: 100%;
+    border-bottom: 2px solid rgba(13, 82, 97, 0.508);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    top: 0;
+}
+
+.menutopo h1{
+    color: white;
+}
+
+.menutopo .container {
+    margin-left: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: auto;
+}
+
+a.acor:visited {
+    color: white;
+}
+
+
+#resultados{
+    color: white;
+}
+
+.textolink {
+    font-size: 20px;
+    overflow: auto;
+    color: white;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.textolink a{
+    color: white;
+    text-decoration: none;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    float: left;
+    font-size: 18px;
+    width: 150px;
+    height: 100%;
+    margin-left: 10px;
+}
+
+
+.textolink a:hover{
+    font-weight: bold;
+    background-color: rgba(9, 37, 85, 0.815);
+    animation-name: alinks;
+    animation-duration: 1.5s;
+    border-radius: 0px 5px 5px 45px;
+}
+
+.container{
+    height: 100%;
+    width: 100%;
+}
+
+
+.container2{
+    width: 97%;
+    height: 100vh;
+    border-radius: 0px 90px 0px 90px;
+    background: rgba(0, 0, 0, 0.171);
+    overflow: hidden;
+    backdrop-filter: blur(3px);
+    margin-bottom: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.534);
+    padding: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.container2 .content{
+    padding: 20px;
+    transition: 0.5s;
+}
+
+.container2 .content input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.container2 .content button{
+    padding: 10px;
+    color: white;
+    border: 2px solid rgb(111, 107, 107);
+    background-color: rgb(60, 49, 49);
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.container2 .content button:hover{
+    font-weight: bolder;
+    cursor: pointer;
+    color: gray;
+}
+
+.container2 .content h1{
+    color: white;
+}
+
+.container2 .content h2{
+    color: rgb(165, 165, 165);
+    font-size: 20px;
+}
+
+#results{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+#resultados{
+    background-color: rgba(46, 46, 182, 0.465);
+    border-radius: 20px;
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#resultados1{
+    background-color: rgb(182, 46, 46, 0.465);
+    border-radius: 20px;
+    width: 200px;
+    text-align: center;
+    margin-left: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.form {
+    width: 320px;
+    border: 2px solid rgba(255, 255, 255, 0.425);
+    border-radius: 40px 40px 40px 40px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.768);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: content-box;
+    padding: 68px 28px;
+    backdrop-filter: blur(3px);
+ }
+
+
+ 
+ .form h1{
+     margin: 0;
+     padding-top: 0;
+     padding-left: 0;
+     padding-bottom: 20px;
+     letter-spacing: 10px;
+     text-align: center;
+     font-size: 25px;
+ }
+ 
+ .login-form p{
+     margin: 0;
+     padding: 0;
+     font-weight: bold;
+ }
+ 
+ .login-page {
+     width: 500px;
+     padding: 4% 0 0;
+     margin: auto;
+ }
+ .inputt {
+     background: transparent;
+     border: none;
+     border-bottom: 2px solid rgba(255,255,255,.2);
+     width: 100%;
+     height: 20px;
+     border-radius: 30px;
+     color: white;
+     font-size: 1.25rem;
+     margin-bottom: 20px;
+     padding: 12px;
+ }
+ 
+ .inputt:focus,
+ .inputt:hover{
+     border: none;
+     border-bottom: 2px solid rgba(255,255,255, 1);
+     box-shadow: none;
+ }
+ 
+ .inputt[type = 'text'], .inputt[type = 'password'], .inputt[type = 'submit']{
+     border: none;
+     border: 1px solid white;
+     background: transparent;
+     outline: none;
+     height: 40px;
+     color: white;
+     font-size: 16px;
+     width: 90%;
+ }
+ 
+ .btnin:hover{
+     font-weight: bold;
+ }
+ 
+ .btnin {
+     font-family: "Roboto", sans-serif;
+     text-transform: uppercase;
+     background-color: #ffffffa4;
+     width: 100%;
+     border: 0;
+     padding: 7px;
+     color: #000000;
+     font-size: 14px;
+     border-radius: 30px;
+     cursor: pointer;
+ }
+ 
+ .form .btnin:hover,.form .btnin:active,.form .btnin:focus {
+     background: #c5c5c5;
+ }
+ 
+ .form .textobaixol {
+     margin: 15px 0 0;
+     color: #ffffff;
+     font-size: 12px;
+ }
+ .form .textobaixol a {
+     color: #777;
+     text-decoration: none;
+ }
+
+
+
+ .form2 {
+    width: 320px;
+    height: 300px;
+    border: 2px solid rgba(255, 255, 255, 0.425);
+    border-radius: 40px 40px 40px 40px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.768);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: content-box;
+    padding: 68px 28px;
+    backdrop-filter: blur(3px);
+ }
+
+ .form2 h1{
+    margin: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 20px;
+    letter-spacing: 10px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.form2 .btnin:hover,.form .btnin:active,.form .btnin:focus {
+    background: #c5c5c5;
+}
+
+.form2 .textobaixol {
+    margin: 15px 0 0;
+    color: #ffffff;
+    font-size: 12px;
+}
+.form2 .textobaixol a {
+    color: #777;
+    text-decoration: none;
+}

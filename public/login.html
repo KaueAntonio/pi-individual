@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <script src="./assets/js/funcoes.js"></script>
+    <title>Login</title>
+    <style>
+        body{
+            background-size: cover;
+            background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/56a25622925791.5631a88c4f6ae.png');
+        }
+    </style>
+</head>
+<body>
+    <div class="menutopo">
+        <div class="container">
+
+            <h1>Sitezão do Kauezão</h1>
+        </div>
+        <span class="textolink">
+            <a class="acor" href="index.html">Home</a>
+            <a href="tirar-time.html">Tirar Times</a>
+            <a href="sorteios.html">Sorteios</a>
+            <a href="login.html" style="float: right;">Login</a>    
+        </span>
+    </div>
+    
+
+    <div class="login-page" id="tela_login">
+        <div class="form2">
+            <h1>Login</h1>
+                <div class="formulario">
+                    <form id="form_login" class="login-form" onsubmit="return entrar()">
+                        <p>E-mail</p>
+                        <input name="email" class="inputt" type="text" placeholder="Insira seu E-mail">
+                        <br>
+                        <p>Senha</p>
+                        <input name="senha" class="inputt" type="password" placeholder="******">
+                        <br>
+                        <input class="btnin" type="submit" value="Entrar" onclick="entrarlogin()">
+                    </input>
+                        <p class="textobaixol">Não é registrado? <a href="cadastro.html" onclick="mudarcadastro()">Cadastre-se!</a></p>
+                    </form>
+
+
+                </div>
+
+                <div id="div_aguardar" class="loading-div">
+                    
+                </div>
+
+                <div id="div_erros_login">
+
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+<script>
+
+    function limparFormulario() {
+        document.getElementById("form_login").reset();
+    }
+
+    function entrar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
+
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+
+        console.log("FORM LOGIN: ", email);
+        console.log("FORM SENHA: ", senha);
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (email == "" || senha == "") {
+            window.alert("Preencha todos os campos para prosseguir!");
+            finalizarAguardar();
+            return false;
+        }
+
+        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
+            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+            finalizarAguardar();
+            return false;
+        }
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(function () {
+                        window.location = "./grafico.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>

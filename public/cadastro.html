@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <script src="./assets/js/funcoes.js"></script>
+    <style>
+        body{
+            background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b6b8f922925791.5631a88c62e88.png'); 
+            background-size: cover;
+        }
+    </style>
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="menutopo">
+        <div class="container">
+
+            <h1>Sitezão do Kauezão</h1>
+        </div>
+        <span class="textolink">
+            <a class="acor" href="index.html">Home</a>
+            <a href="tirar-time.html">Tirar Times</a>
+            <a href="sorteios.html">Sorteios</a>
+            <a href="login.html" style="float: right;">Login</a>    
+        </span>
+    </div>
+
+    <div class="login-page" id="tela_cadastro">
+        <div class="formulario">
+            <div class="form">
+                <h1>Cadastro</h1>
+            <form class="register-form" id="form_cadastro" onsubmit="return cadastrar()">
+                <p>Usuário</p>
+                <input class="inputt" name="nome" type="text" placeholder="Usuario">
+                <br>
+                <p>Senha</p>
+                <input class="inputt" name="senha" type="password" placeholder="******">
+                <br>
+                <p>Confirmação de Senha</p>
+                <input class="inputt" name="confirmacao-senha" type="password" placeholder="******">
+                <br>
+                <p>E-mail</p>
+                <input class="inputt" name="email" type="text" placeholder="email">
+                <br>    
+                <input class="btnin" type="submit" >
+                <p class="textobaixol">Ja é registrado? <a href="login.html" >Faça login!</a></p>
+            </form>
+        </div>
+        </div>
+        <div id="div_aguardar" class="loading-div">
+            
+        </div>
+
+        <div id="div_erros_login">
+            
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+    function cadastrar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        var nome = formulario.get("nome");
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+        var confirmacaoSenha = formulario.get("confirmacao-senha");
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (nome == "" || email == "" || senha == "" || confirmacaoSenha == "") {
+            
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (nome == "")  {
+                console.log('nome está em branco')
+            }
+            if (email == "" )  {
+                console.log('email está em branco')
+            }
+            if (senha == "" )  {
+                console.log('senha está em branco')
+            }
+            if (confirmacaoSenha == "" )  {
+                console.log('confirmacaoSenha está em branco')
+            }
+            finalizarAguardar();
+            return false;
+        }
+        
+        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
+            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+            finalizarAguardar();
+            return false;
+        }
+        
+        if (senha != confirmacaoSenha) {
+            window.alert("As senhas inseridas devem ser iguais para prosseguir!");
+            finalizarAguardar();
+            return false;
+        }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Cadastro realizado com sucesso!");
+                window.location = "login.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+</script>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <style>
+        body{
+            background-size: cover;
+            background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cdf69022925791.5631a88c380b6.png');
+        }
+    </style>
+    <title>Missão e Valores</title>
+</head>
+<body>
+    <div class="menutopo">
+        <div class="container">
+
+            <h1>Sitezão do Kauezão</h1>
+        </div>
+        <span class="textolink">
+            <a class="acor" href="index.html">Home</a>
+            <a href="tirar-time.html">Tirar Times</a>
+            <a href="sorteios.html">Sorteios</a>
+            <a href="login.html" style="float: right;">Login</a>    
+        </span>
+    </div>
+    <div class="container2">
+        <div class="content" id="resultados">
+
+
+            </div></div>
+</body>
+</html>
+<script>
+    var formulario = document.getElementById('resultados');
+fetch("/avisos", {
+    method: "GET",
+    body: resultados
+}).then(function (resposta) {
+
+    console.log("resposta: ", resposta);
+
+    if (resposta.ok) {
+        window.alert("Cadastro realizado com sucesso!");
+        resultados.innerHTML += (`${resposta}`)
+        
+    } else {
+        throw("Houve um erro ao tentar realizar o cadastro!");
+    }
+});
+</script>
