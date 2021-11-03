@@ -139,22 +139,18 @@ a.acor:visited {
     flex-direction: row;
 }
 
-#resultados{
-    background-color: rgba(46, 46, 182, 0.465);
-    border-radius: 20px;
-    width: 200px;
-    text-align: center;
-    font-weight: bold;
-}
+
 
 #resultados1{
     background-color: rgb(182, 46, 46, 0.465);
     border-radius: 20px;
-    width: 200px;
     text-align: center;
     margin-left: 10px;
+    margin-bottom: 10px;
     font-weight: bold;
     color: white;
+    width: 340px;
+    padding: 5px;
 }
 
 .form {

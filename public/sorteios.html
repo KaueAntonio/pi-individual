@@ -12,7 +12,7 @@
             background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cdf69022925791.5631a88c380b6.png');
         }
     </style>
-    <title>Missão e Valores</title>
+    <title>Lista de Free Agents</title>
 </head>
 <body>
     <div class="menutopo">
@@ -23,32 +23,39 @@
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
-            <a href="sorteios.html">Sorteios</a>
             <a href="login.html" style="float: right;">Login</a>    
         </span>
     </div>
     <div class="container2">
-        <div class="content" id="resultados">
+        <button onclick="ver()">Ver</button>
+        <div id="resultados">
 
 
             </div></div>
 </body>
 </html>
 <script>
-    var formulario = document.getElementById('resultados');
-fetch("/avisos", {
+    function ver(){
+resultados.innerHTML = '';
+fetch("/usuarios/listar", {
     method: "GET",
-    body: resultados
 }).then(function (resposta) {
 
     console.log("resposta: ", resposta);
 
-    if (resposta.ok) {
-        window.alert("Cadastro realizado com sucesso!");
-        resultados.innerHTML += (`${resposta}`)
-        
-    } else {
-        throw("Houve um erro ao tentar realizar o cadastro!");
-    }
+    resposta.json().then(function (data){
+       
+        let len = data.length;
+        let cont = 0;
+        for (let i = 0; i <= len; i++){
+            cont++;
+            let arquivotexto = JSON.stringify(data[i]);
+        let arquivo = JSON.parse(arquivotexto);
+            resultados.innerHTML += (`<div id="resultados1">Jogador ${cont}<br>  Nick InGame: ${arquivo.nome} <br>Email Para Contato: ${arquivo.email}</div><br>`);
+        }
+    });
+}).catch(function(error){
+    console.error(`ERROR`, error);
 });
+    }
 </script>
