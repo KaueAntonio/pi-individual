@@ -25,25 +25,24 @@
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
             <a href="sorteios.html">Free Agents</a>
-            <a href="login.html" style="float: right;">Login</a>    
+            <a href="cadastro.html" style="float: right;">Participe!</a>    
         </span>
     </div>
     
 
     <div class="login-page" id="tela_login">
         <div class="form2">
-            <h1>Login</h1>
+            <h2>Remover Card De Free Agent</h2><br><br><br>
                 <div class="formulario">
                     <form id="form_login" class="login-form" onsubmit="return entrar()">
                         <p>E-mail</p>
                         <input name="email" class="inputt" type="text" placeholder="Insira seu E-mail">
                         <br>
-                        <p>Senha</p>
-                        <input name="senha" class="inputt" type="password" placeholder="******">
+                        <p>Token</p>
+                        <input name="token" class="inputt" type="password" placeholder="******">
                         <br>
                         <input class="btnin" type="submit" value="Entrar" onclick="entrarlogin()">
                     </input>
-                        <p class="textobaixol">Não é registrado? <a href="cadastro.html" onclick="mudarcadastro()">Cadastre-se!</a></p>
                     </form>
 
 
@@ -72,13 +71,13 @@
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
 
         var email = formulario.get("email");
-        var senha = formulario.get("senha");
+        var token = formulario.get("token");
 
         console.log("FORM LOGIN: ", email);
-        console.log("FORM SENHA: ", senha);
+        console.log("FORM SENHA: ", token);
 
         // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-        if (email == "" || senha == "") {
+        if (email == "" || token== "") {
             window.alert("Preencha todos os campos para prosseguir!");
             finalizarAguardar();
             return false;
@@ -90,42 +89,26 @@
             return false;
         }
 
-        fetch("/usuarios/autenticar", {
+        fetch("/usuarios/deletar", {
             method: "POST",
             body: formulario
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+
+            console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-
-                    setTimeout(function () {
-                        window.location = "./index.html";
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
+                window.alert("Cadastro Deletado Com Sucesso!!");
+                window.location = "sorteios.html";
+                limparFormulario();
+                finalizarAguardar();
             } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
+                throw("Houve um erro ao tentar excluir o cadastro!");
             }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
 
         return false;
     }

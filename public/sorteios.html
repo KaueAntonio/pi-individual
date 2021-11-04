@@ -23,19 +23,20 @@
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
-            <a href="login.html" style="float: right;">Login</a>    
+            <a href="cadastro.html" style="float: right;">Participe!</a>    
         </span>
     </div>
     <div class="container2">
-        <button onclick="ver()">Ver</button>
+        <h1 class="title_free">Encontre Aqui o Jogador Que Você Precisa!!</h1>
+        <h3 class="title2_free">Navegue pela página e encontre algum player que pode fazer a diferença no seu time!<br>
+        Após escolher é só clicar em "Ver Steam" e entrar em contato com o player.<br>
+        Já encontrou um time e quer retirar seu card do site? Clique <a class="textolink2" href="deletar.html">Aqui</a></h3>
         <div id="resultados">
-
 
             </div></div>
 </body>
-</html>
+</html><span></span>
 <script>
-    function ver(){
 resultados.innerHTML = '';
 fetch("/usuarios/listar", {
     method: "GET",
@@ -51,11 +52,14 @@ fetch("/usuarios/listar", {
             cont++;
             let arquivotexto = JSON.stringify(data[i]);
         let arquivo = JSON.parse(arquivotexto);
-            resultados.innerHTML += (`<div id="resultados1">Jogador ${cont}<br>  Nick InGame: ${arquivo.nome} <br>Email Para Contato: ${arquivo.email}</div><br>`);
+            resultados.innerHTML += (`<div id="resultados1"><span class="span_title_card">${arquivo.nome} ${arquivo.idade}</span><div class="divmeio" >
+                <span class="span_subtitle">Nick InGame</span><br><span class="span_span">${arquivo.nick}</span><br><br>
+                <span class="span_subtitle">Patente</span><br><span class="span_span">${arquivo.patente}</span><br></div>
+                <div class="divbotao" ><a class="botaosteam" href="https://steamcommunity.com/id/${arquivo.steam}/">Ver Steam</a></div></div>`);
         }
     });
 }).catch(function(error){
     console.error(`ERROR`, error);
 });
-    }
+    
 </script>

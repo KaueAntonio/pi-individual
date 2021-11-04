@@ -18,5 +18,9 @@ router.post("/cadastrar", function(req, res) {
 router.post("/autenticar", function(req, res) {
     usuarioController.entrar(req, res);
 });
+
+router.post("/deletar", function(req, res) {
+    usuarioController.deletar(req, res);
+});
   
 module.exports = router;

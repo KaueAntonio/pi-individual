@@ -1,12 +1,12 @@
 var mysql = require("mysql2");
 var sql = require('mssql');
-
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
     user: "kaueantonio@projeto-pi-individual",
-    password: "35213160840Kk@",  
+    password: '35213160840Kk@',  
     database: "projetoindividual",
-    server: "projeto-pi-individual.mysql.database.azure.com",
+    host: "projeto-pi-individual.mysql.database.azure.com",
+    port: 3306,
     pool: {
         max: 10,
         min: 0,
@@ -17,12 +17,21 @@ var sqlServerConfig = {
     }
 }
 
+
+
+
+
+
+
+
+
+
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL)
 var mySqlConfig = {
-    host: "127.0.0.1",
-    user: "root",
+    host: "projeto-pi-individual.mysql.database.azure.com",
+    user: "kaueantonio@projeto-pi-individual",
     database: "projetoindividual",
-    password: "bandtec",
+    password: "35213160840Kk@",
 };
 
 
@@ -41,19 +50,19 @@ function executar(instrucao) {
             });
             sql.on('error', function (erro) {
                 return ("ERRO NO SQL SERVER (Azure): ", erro);
-             });
+            });
         });
-    } else if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){    
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         return new Promise(function (resolve, reject) {
             var conexao = mysql.createConnection(mySqlConfig);
             conexao.connect();
-            conexao.query(instrucao, function(erro, resultados) {
+            conexao.query(instrucao, function (erro, resultados) {
                 conexao.end();
                 if (erro) {
                     reject(erro);
-                }                      
+                }
                 console.log(resultados);
-                resolve(resultados);    
+                resolve(resultados);
             });
             conexao.on('error', function (erro) {
                 return ("ERRO NO MySQL WORKBENCH (Local): ", erro.sqlMessage);
@@ -62,7 +71,7 @@ function executar(instrucao) {
     } else {
         return new Promise(function (resolve, reject) {
             console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-            reject ("AMBIENTE NÃO CONFIGURADO EM app.js")
+            reject("AMBIENTE NÃO CONFIGURADO EM app.js")
         });
     }
 }

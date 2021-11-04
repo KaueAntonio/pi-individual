@@ -24,30 +24,37 @@
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
-            <a href="sorteios.html">Free Agents</a>
-            <a href="login.html" style="float: right;">Login</a>    
+            <a href="sorteios.html">Free Agents</a>   
         </span>
     </div>
 
     <div class="login-page" id="tela_cadastro">
         <div class="formulario">
             <div class="form">
-                <h1>Cadastro</h1>
+                <h1>Cadastro De Free Agent</h1>
             <form class="register-form" id="form_cadastro" onsubmit="return cadastrar()">
-                <p>Usuário</p>
-                <input class="inputt" name="nome" type="text" placeholder="Usuario">
+                <p>Primeiro Nome</p>
+                <input class="inputt" name="nome" type="text" placeholder="Apenas o Primeiro Nome">
                 <br>
-                <p>Senha</p>
-                <input class="inputt" name="senha" type="password" placeholder="******">
-                <br>
-                <p>Confirmação de Senha</p>
-                <input class="inputt" name="confirmacao-senha" type="password" placeholder="******">
+                <p>Idade</p>
+                <input class="inputt" name="idade" type="number" placeholder="0">
                 <br>
                 <p>E-mail</p>
-                <input class="inputt" name="email" type="text" placeholder="email">
+                <input class="inputt" name="email" type="text" placeholder="Email">
+                <br>
+                <p>Token <br><span class="letra_pequena">(Guarde-o, você irá usá-lo para gerenciar sua conta, use letras e caractéres para um token mais forte)</span></a></p> 
+                <input class="inputt" name="token" type="text" placeholder="nome@123Kk#">
+                <p>Nick Ingame</p>
+                <input class="inputt" name="nick" type="text" placeholder="Nick">
                 <br>    
+                <p>Patente</p>
+                <input class="inputt" name="patente" type="text" placeholder="Patente">
+                <br>
+                <p>ID Steam - Encontre <a class="textolink2" href="">Aqui!</a></p> 
+                <br>
+                <input class="inputt" name="idsteam" type="text" placeholder="023632054">                
+                <br>
                 <input class="btnin" type="submit" >
-                <p class="textobaixol">Ja é registrado? <a href="login.html" >Faça login!</a></p>
             </form>
         </div>
         </div>
@@ -74,11 +81,14 @@
 
         var nome = formulario.get("nome");
         var email = formulario.get("email");
-        var senha = formulario.get("senha");
-        var confirmacaoSenha = formulario.get("confirmacao-senha");
+        var idade = formulario.get("idade");
+        var nickingame = formulario.get("nick");
+        var ptt = formulario.get("patente");
+        var id = formulario.get("idsteam");
+        var token = formulario.get("token");
 
         // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-        if (nome == "" || email == "" || senha == "" || confirmacaoSenha == "") {
+        if (nome == "" || email == "" || idade == "" || nickingame == "" || ptt == "" || id == "") {
             
             window.alert("Preencha todos os campos para prosseguir!");
             if (nome == "")  {
@@ -87,11 +97,21 @@
             if (email == "" )  {
                 console.log('email está em branco')
             }
-            if (senha == "" )  {
-                console.log('senha está em branco')
+            if (idade == 0 || idade == '' )  {
+                console.log('idade está em incorreta')
             }
-            if (confirmacaoSenha == "" )  {
-                console.log('confirmacaoSenha está em branco')
+            if (nickingame == "" )  {
+                console.log('nick está em branco')
+            }
+            if (ptt == "" )  {
+                console.log('patente está em branco')
+            }
+            
+            if (id == "" )  {
+                console.log('idSteam está em branco')
+            }
+            if (token == "" )  {
+                console.log('token está em branco')
             }
             finalizarAguardar();
             return false;
@@ -103,11 +123,7 @@
             return false;
         }
         
-        if (senha != confirmacaoSenha) {
-            window.alert("As senhas inseridas devem ser iguais para prosseguir!");
-            finalizarAguardar();
-            return false;
-        }
+        
 
         fetch("/usuarios/cadastrar", {
             method: "POST",

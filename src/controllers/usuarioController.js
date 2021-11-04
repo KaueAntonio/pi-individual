@@ -26,7 +26,7 @@ function listar(req, res) {
 
 function entrar (req, res) {
     var email = req.body.email;
-    var senha = req.body.senha;
+    var senha = req.body.token;
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
@@ -62,16 +62,76 @@ function entrar (req, res) {
 function cadastrar(req, res) {
     var nome = req.body.nome;
     var email = req.body.email;
-    var senha = req.body.senha;
+    var idade = req.body.idade;
+    var nickingame = req.body.nick;
+    var ptt = req.body.patente;
+    var id = req.body.idsteam;
+    var token = req.body.token;
+
+
+
+
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
+    } else if (idade == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else {
-        usuarioModel.cadastrar(nome, email, senha)
+    } else if (nickingame == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (ptt == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (id == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (token == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    }{
+
+
+
+
+
+
+
+        usuarioModel.cadastrar(nome, email, idade, nickingame, ptt, id, token)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
+
+function deletar(req, res) {
+    var token = req.body.token;
+    var email = req.body.email;
+
+
+
+    if (token == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else{
+
+
+
+
+
+
+
+        usuarioModel.deletar(email, token)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -93,5 +153,6 @@ module.exports = {
     entrar,
     cadastrar,
     listar,   
-    testar
+    testar,
+    deletar
 }
