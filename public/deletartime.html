@@ -26,20 +26,20 @@
             <a href="tirar-time.html">Tirar Times</a>
             <a href="times.html">Times</a>
             <a href="sorteios.html">Jogadores</a>   
-            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>    
+            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>   
         </span>
     </div>
     
 
     <div class="login-page" id="tela_login">
         <div class="form2">
-            <h2>Remover Card De Free Agent</h2><br><br><br>
+            <h2>Remover Jogador</h2><br><br><br>
                 <div class="formulario">
                     <form id="form_login" class="login-form" onsubmit="return entrar()">
-                        <p>E-mail</p>
-                        <input name="email" class="inputt" type="text" placeholder="Insira seu E-mail">
+                        <p>Email do Jogador</p>
+                        <input name="nome" class="inputt" type="text" placeholder="Insira o Email do Jogador">
                         <br>
-                        <p>Token</p>
+                        <p>Token do Time</p>
                         <input name="token" class="inputt" type="password" placeholder="******">
                         <br>
                         <input class="btnin" type="submit" value="Entrar" onclick="entrarlogin()">
@@ -84,13 +84,8 @@
             return false;
         }
 
-        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
-            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
-            finalizarAguardar();
-            return false;
-        }
-
-        fetch("/usuarios/deletar", {
+        
+        fetch("/usuarios/deletar2", {
             method: "POST",
             body: formulario
         }).then(function (resposta) {
@@ -98,12 +93,12 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                window.alert("Cadastro Deletado Com Sucesso!!");
-                window.location = "sorteios.html";
+                window.alert("Jogador Deletado Com Sucesso!!");
+                window.location = "times.html";
                 limparFormulario();
                 finalizarAguardar();
             } else {
-                throw("Houve um erro ao tentar excluir o cadastro!");
+                throw("Houve um erro ao tentar excluir o time!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

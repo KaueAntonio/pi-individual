@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <style>
+        body{
+            background-size: cover;
+            background-image: url('./fotos/m4a1s.png');
+        }
+    </style>
+    <title>Lista de Times</title>
+</head>
+<body>
+    <div class="menutopo">
+        <div class="container">
+
+            <h1>Sitezão do Kauezão</h1>
+        </div>
+        <span class="textolink">
+            <a class="acor" href="index.html">Home</a>
+            <a href="tirar-time.html">Tirar Times</a>
+            <a href="sorteios.html">Free Agents</a>
+            <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>    
+            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>     
+        </span>
+    </div>
+    <div class="container2">
+        <h1 class="title_free">Desafie Times Marque Campeonatos ou Até Entre Em Um!!</h1>
+        <h3 class="title2_free">Navegue pela página e encontre times que faltam, ou não, jogadores, clicando em "Steam do Responsável" você é encaminhado para a steam do manager do
+            time, assim podendo marcar partidas ou até uma possível inscrição no mesmo.<br>
+        Quer retirar seu time da lista? Clique <a class="textolink2" href="deletar.html">Aqui</a></h3>
+        <div id="resultados">
+            
+        </div>
+            </div></div>
+</body>
+</html><span></span>
+<script>
+resultados.innerHTML = '';
+fetch("/usuarios/listar2", {
+    method: "GET",
+}).then(function (resposta) {
+
+    console.log("resposta: ", resposta);
+
+    resposta.json().then(function (data){
+        let cont_zero = 0;
+        let cont_um = 1;
+        let cont_dois = 2;
+        let cont_tres = 3;
+        let cont_quatro = 4;
+        let dtlen = data.length;
+        let reslen = dtlen % 5;
+        let len = (dtlen / 5) + reslen;
+        for (let i = 1; i <= len; i++){
+            let arquivotexto = JSON.stringify(data);
+        let arquivo = JSON.parse(arquivotexto);
+            resultados.innerHTML += (`<div class="times">
+                <div class="time">
+                    <div class="nome_time">
+                        <h3>${arquivo[cont_zero].nomeeqp}</h3>
+                    </div>
+    
+                    <div class="jogador">
+                        <br>${arquivo[cont_zero].nick}<br><br><br><span class="text_patente">${arquivo[cont_zero].patente}</span>
+                    </div>
+    
+                    <div class="jogador">
+                        <br>${arquivo[cont_um].nick}<br><br><br><span class="text_patente">${arquivo[cont_um].patente}</span>
+                    </div>
+    
+                    <div class="jogador">
+                        <br>${arquivo[cont_dois].nick}<br><br><br><span class="text_patente">${arquivo[cont_dois].patente}</span>
+                    </div>
+    
+                    <div class="jogador">
+                        <br>${arquivo[cont_tres].nick}<br><br><br><span class="text_patente">${arquivo[cont_tres].patente}</span>
+                    </div>
+    
+                    <div class="jogador">
+                        <br>${arquivo[cont_quatro].nick}<br><br><br><span class="text_patente">${arquivo[cont_quatro].patente}</span>
+                    </div>
+                    <div class="footer_time">
+                        <a class="botaosteam2" href="https://steamcommunity.com/id/${arquivo[cont_zero].steamResp}/">Steam do Responsável</a>
+                    </div>
+                </div>
+            </div>`);
+          cont_zero+=5;
+        cont_um+=5;
+         cont_dois+=5;
+        cont_tres+=5;
+        cont_quatro+=5;
+        }
+    });
+}).catch(function(error){
+    console.error(`ERROR`, error);
+});
+    
+
+</script>

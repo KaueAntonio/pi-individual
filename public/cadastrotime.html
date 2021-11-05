@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <script src="./assets/js/funcoes.js"></script>
+    <style>
+        body {
+            background-image: url('./fotos/ak47.png');
+            background-size: cover;
+        }
+    </style>
+    <title>Cadastro de Time</title>
+</head>
+
+<body>
+    <div class="menutopo">
+        <div class="container">
+
+            <h1>Sitezão do Kauezão</h1>
+        </div>
+        <span class="textolink">
+            <a class="acor" href="index.html">Home</a>
+            <a href="tirar-time.html">Tirar Times</a>
+            <a href="times.html">Times</a>
+            <a href="sorteios.html">Jogadores</a>
+            <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>    
+        </span>
+    </div>
+
+    <div class="login-page" id="tela_cadastro">
+        <div class="formulario">
+            <div class="form">
+                <h2>Cadastro De Time</h2>
+                <br><h4>(Lembrando que Todos os Jogadores Devem Estar Cadastrados no Site)</h4><br><br>
+                <form class="register-form" id="form_cadastro" onsubmit="return cadastrar()">
+                    <p>Nome do Time</p>
+                    <input class="inputt" name="nome" type="text" placeholder="Apenas o Primeiro Nome">
+                    <br>
+                    <p>ID Steam do Responsável</p>
+                    <input class="inputt" name="idsteam" type="text" placeholder="32432670">
+                    <br>
+                    <p>Token do Time</p>
+                    <input class="inputt" name="token_time" type="text" placeholder="time@123Kk#">
+                    <br>
+                    <p>Token Jogador 1</p>
+                    <input class="inputt" name="token1" type="text" placeholder="Email">
+                    <br>
+                    <p>Token Jogador 2<br></a></p>
+                    <input class="inputt" name="token2" type="text" placeholder="nome@123Kk#">
+                    <br>
+                    <p>Token Jogador 3<br></a></p>
+                    <input class="inputt" name="token3" type="text" placeholder="nome@123Kk#">
+                    <br>
+                    <p>Token Jogador 4<br></a></p>
+                    <input class="inputt" name="token4" type="text" placeholder="nome@123Kk#">
+                    <br>
+                    <p>Token Jogador 5<br></a></p>
+                    <input class="inputt" name="token5" type="text" placeholder="nome@123Kk#">
+                    <br>
+                    <input class="btnin" type="submit">
+                </form>
+            </div>
+        </div>
+        <div id="div_aguardar" class="loading-div">
+
+        </div>
+
+        <div id="div_erros_login">
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    var ax_nome = '';
+    var formulario = '';
+
+    var nome = '';
+    var idsteam = '';
+    var token1 = '';
+    var token2 = '';
+    var token3 = '';
+    var token4 = '';
+    var token5 = '';
+    var token_time = '';
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+    function cadastrar() {
+        aguardar();
+        
+        formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        nome = formulario.get("nome");
+        idsteam = formulario.get("idsteam");
+        token1 = formulario.get("token1");
+        token2 = formulario.get("token2");
+        token3 = formulario.get("token3");
+        token4 = formulario.get("token4");
+        token5 = formulario.get("token5");
+        token_time = formulario.get("token_time");
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (nome == "" || idsteam == "" || token1 == "" || token2 == "" || token3 == "" || token4 == "" || token5 == "" || token_time == "") {
+
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (nome == "") {
+                console.log('nome está em branco')
+            }
+            if (idsteam == "") {
+                console.log('Id do responsável está em branco')
+            }
+            if (token5 == 0 || token5 == '') {
+                console.log('token5 está em incorreta')
+            }
+            if (token1 == 0 || token1 == '') {
+                console.log('nick está em branco')
+            }
+            if (token4 == 0 || token4 == '') {
+                console.log('token4 está em branco')
+            }
+
+            if (token3 == 0 || token3 == '') {
+                console.log('token3 está em branco')
+            }
+            if (token2 == 0 || token2 == '') {
+                console.log('token2 está em branco')
+            }
+            if (token_time == 0 || token_time == '') {
+                console.log('token2 está em branco')
+            }
+            finalizarAguardar();
+            return false;
+        }
+
+
+        fetch("/usuarios/cadastrar2", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            
+            if (resposta.ok) {
+                
+                
+                return inserir_jogadores();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+        inserir_jogadores();
+        return false;
+    }
+
+
+
+
+
+
+
+    function inserir_jogadores(){
+                setTimeout( insert_jogador1(), 5000);
+                setTimeout( insert_jogador2(), 5000);
+                setTimeout( insert_jogador3(), 5000);
+                setTimeout( insert_jogador4(), 5000);
+                setTimeout( insert_jogador5(), 5000);
+    }
+
+
+
+
+
+
+
+
+    function insert_jogador1() {
+        fetch("/usuarios/insertj1", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                lerdados();
+                window.alert("Cadastro do jogador 1 realizado com sucesso!");
+                window.location = "index.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro do jogador 1!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function insert_jogador2() {
+        fetch("/usuarios/insertj2", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                lerdados();
+                window.alert("Cadastro do jogador 2 realizado com sucesso!");
+                window.location = "index.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro do jogador 2!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+    function insert_jogador3() {
+        fetch("/usuarios/insertj3", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                lerdados();
+                window.alert("Cadastro do jogador 3 realizado com sucesso do jogador 3!");
+                window.location = "index.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+    function insert_jogador4() {
+        fetch("/usuarios/insertj4", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                lerdados();
+                window.alert("Cadastro do jogador 4realizado com sucesso!");
+                window.location = "index.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro do jogador 4!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+    function insert_jogador5() {
+        fetch("/usuarios/insertj5", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                lerdados();
+                window.alert("Cadastro do jogador 5 realizado com sucesso!");
+                window.location = "index.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro do jogador 5!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+</script>
