@@ -13,4 +13,4 @@ sua planta para que ela tenha sua eficiência ao máximo.
 </div>
 
 ## Criador:
-<a href="https://github.com/KaueAntonio">Kauê</a><br>
+<a href="https://github.com/KaueAntonio">Kauê Antonio</a><br>
