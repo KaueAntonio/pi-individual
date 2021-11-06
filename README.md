@@ -1,8 +1,7 @@
-## Bem Vindo ao Repositório da WeGrowffee!
+## Bem Vindo ao Repositório da UnitedGamers!
 
-   A WeGrowffee monitora a temperatura e umidade em estufas de café, além de também controlar a
-irrigação de água dela, fazendo com que seu plantio tenha uma safra muito melhor do que tinha, assim também protegendo
-sua planta para que ela tenha sua eficiência ao máximo.
+   Crie novas amizades, viva novas experiências. Tudo isso e muito mais aqui na UnitedGamers!
+   
 
 <div style="display: inline_block"><br>
   <img align="center" alt="w-Js" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
