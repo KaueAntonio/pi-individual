@@ -18,7 +18,7 @@
     <div class="menutopo">
         <div class="container">
 
-            <h1>Sitezão do Kauezão</h1>
+            <img src="./fotos/logo.png" class="foto_logo"></img>
         </div>
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
@@ -50,8 +50,7 @@ fetch("/usuarios/listar", {
        
         let len = data.length;
         for (let i = 0; i <= len; i++){
-            let arquivotexto = JSON.stringify(data[i]);
-        let arquivo = JSON.parse(arquivotexto);
+        let arquivo = data[i];
             resultados.innerHTML += (`<div id="resultados1"><span class="span_title_card">${arquivo.nome} ${arquivo.idade}</span><div class="divmeio" >
                 <span class="span_subtitle">Nick InGame</span><br><span class="span_span">${arquivo.nick}</span><br><br>
                 <span class="span_subtitle">Patente</span><br><span class="span_span">${arquivo.patente}</span><br></div>

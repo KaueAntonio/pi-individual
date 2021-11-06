@@ -10,7 +10,7 @@
     background-image: url('https://img.freepik.com/free-vector/dark-hexagonal-background-with-gradient-color_79603-1409.jpg?size=626&ext=jpg');
     text-align: center;
     font-size: 75%;
-    height: 50px;
+    height: 80px;
     width: 100%;
     border-bottom: 2px solid rgba(13, 82, 97, 0.508);
     margin-bottom: 10px;
@@ -468,4 +468,8 @@ a.acor:visited {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.foto_logo{
+    height: 85px;
 }

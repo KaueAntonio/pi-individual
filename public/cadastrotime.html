@@ -21,7 +21,7 @@
     <div class="menutopo">
         <div class="container">
 
-            <h1>Sitezão do Kauezão</h1>
+            <img src="./fotos/logo.png" class="foto_logo"></img>
         </div>
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
@@ -39,7 +39,7 @@
                 <br><h4>(Lembrando que Todos os Jogadores Devem Estar Cadastrados no Site)</h4><br><br>
                 <form class="register-form" id="form_cadastro" onsubmit="return cadastrar()">
                     <p>Nome do Time</p>
-                    <input class="inputt" name="nome" type="text" placeholder="Apenas o Primeiro Nome">
+                    <input class="inputt" name="nome" type="text" placeholder="Nome Do Time">
                     <br>
                     <p>ID Steam do Responsável</p>
                     <input class="inputt" name="idsteam" type="text" placeholder="32432670">
@@ -48,7 +48,7 @@
                     <input class="inputt" name="token_time" type="text" placeholder="time@123Kk#">
                     <br>
                     <p>Token Jogador 1</p>
-                    <input class="inputt" name="token1" type="text" placeholder="Email">
+                    <input class="inputt" name="token1" type="text" placeholder="nome@123Kk#">
                     <br>
                     <p>Token Jogador 2<br></a></p>
                     <input class="inputt" name="token2" type="text" placeholder="nome@123Kk#">
@@ -148,9 +148,10 @@
             console.log("resposta: ", resposta);
             
             if (resposta.ok) {
-                
-                
                 return inserir_jogadores();
+                window.alert("Cadastro de time realizado com sucesso!");
+                window.location = "times.html";
+                
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
@@ -192,11 +193,7 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                lerdados();
                 window.alert("Cadastro do jogador 1 realizado com sucesso!");
-                window.location = "index.html";
-                limparFormulario();
-                finalizarAguardar();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 1!");
             }
@@ -217,11 +214,7 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                lerdados();
                 window.alert("Cadastro do jogador 2 realizado com sucesso!");
-                window.location = "index.html";
-                limparFormulario();
-                finalizarAguardar();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 2!");
             }
@@ -241,11 +234,7 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                lerdados();
-                window.alert("Cadastro do jogador 3 realizado com sucesso do jogador 3!");
-                window.location = "index.html";
-                limparFormulario();
-                finalizarAguardar();
+                window.alert("Cadastro do jogador 3 realizado com sucesso!");
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
@@ -265,11 +254,7 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                lerdados();
-                window.alert("Cadastro do jogador 4realizado com sucesso!");
-                window.location = "index.html";
-                limparFormulario();
-                finalizarAguardar();
+                window.alert("Cadastro do jogador 4 realizado com sucesso!");
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 4!");
             }
@@ -289,11 +274,8 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                lerdados();
                 window.alert("Cadastro do jogador 5 realizado com sucesso!");
-                window.location = "index.html";
-                limparFormulario();
-                finalizarAguardar();
+                window.location = "times.html";
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 5!");
             }

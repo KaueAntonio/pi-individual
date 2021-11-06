@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
     <script src="./assets/js/funcoes.js"></script>
-    <title>Login</title>
+    <title>Deletar</title>
     <style>
         body{
             background-size: cover;
@@ -19,7 +19,7 @@
     <div class="menutopo">
         <div class="container">
 
-            <h1>Sitezão do Kauezão</h1>
+            <img src="./fotos/logo.png" class="foto_logo"></img>
         </div>
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
@@ -35,14 +35,14 @@
         <div class="form2">
             <h2>Remover Jogador</h2><br><br><br>
                 <div class="formulario">
-                    <form id="form_login" class="login-form" onsubmit="return entrar()">
-                        <p>Email do Jogador</p>
-                        <input name="nome" class="inputt" type="text" placeholder="Insira o Email do Jogador">
+                    <form id="form_login" class="login-form" onsubmit="return entrar2()">
+                        <p>Nome do Time (igual ao de cadastro)</p>
+                        <input name="nome" class="inputt" type="text" placeholder="Insira o Nome do Time">
                         <br>
                         <p>Token do Time</p>
                         <input name="token" class="inputt" type="password" placeholder="******">
                         <br>
-                        <input class="btnin" type="submit" value="Entrar" onclick="entrarlogin()">
+                        <input class="btnin" type="submit" value="Entrar"">
                     </input>
                     </form>
 
@@ -61,24 +61,26 @@
 </body>
 </html>
 <script>
-
+var nome = '';
+    var token = '';
+    var formulario = '';
     function limparFormulario() {
         document.getElementById("form_login").reset();
     }
 
-    function entrar() {
+    function entrar2() {
         aguardar();
 
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
+       formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
 
-        var email = formulario.get("email");
-        var token = formulario.get("token");
+        nome = formulario.get("nome");
+        token = formulario.get("token");
 
-        console.log("FORM LOGIN: ", email);
+        console.log("FORM LOGIN: ", nome);
         console.log("FORM SENHA: ", token);
 
         // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-        if (email == "" || token== "") {
+        if (nome == "" || token== "") {
             window.alert("Preencha todos os campos para prosseguir!");
             finalizarAguardar();
             return false;
@@ -93,10 +95,8 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                window.alert("Jogador Deletado Com Sucesso!!");
+                return deletar_time()
                 window.location = "times.html";
-                limparFormulario();
-                finalizarAguardar();
             } else {
                 throw("Houve um erro ao tentar excluir o time!");
             }
@@ -105,8 +105,42 @@
             finalizarAguardar();
         });
 
+        deletar_time();
+        return false;
+    }
+
+
+
+    function deletar_time(){
+                setTimeout( deletar_time2(), 5000);
+    }
+
+
+
+
+    function deletar_time2() {
+        fetch("/usuarios/deletar3", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Time Deletado Com Sucesso!");
+                window.location = "times.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro do jogador 1!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
 
         return false;
     }
+
 
 </script>

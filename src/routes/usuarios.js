@@ -43,6 +43,10 @@ router.post("/deletar2", function(req, res) {
     usuarioController.deletar2(req, res);
 });
 
+router.post("/deletar3", function(req, res) {
+    usuarioController.deletar3(req, res);
+});
+
 router.post("/insertj1", function(req, res) {
     usuarioController.insert_j1(req, res);
 });

@@ -102,10 +102,6 @@ function cadastrar(req, res) {
     var id = req.body.idsteam;
     var token = req.body.token;
 
-
-
-
-
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -121,12 +117,6 @@ function cadastrar(req, res) {
     } else if (token == undefined) {
         res.status(400).send("Sua senha está undefined!");
     }{
-
-
-
-
-
-
 
         usuarioModel.cadastrar(nome, email, idade, nickingame, ptt, id, token)
         .then(
@@ -157,9 +147,6 @@ function cadastrar3(req, res) {
     var token_time = req.body.token_time;
 
 
-
-
-
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (idsteam == undefined) {
@@ -177,11 +164,6 @@ function cadastrar3(req, res) {
     } else if (token_time == undefined) {
         res.status(400).send("Sua senha está undefined!");
     }{
-
-
-
-
-
 
 
         usuarioModel.cadastrar3(nome, idsteam, token1, token2, token3, token4, token5, token_time)
@@ -239,14 +221,11 @@ function deletar(req, res) {
 }
 function deletar2(req, res) {
     var token = req.body.token;
-    var email = req.body.email;
 
 
 
     if (token == undefined) {
         res.status(400).send("Seu nome está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
     } else{
 
 
@@ -255,7 +234,43 @@ function deletar2(req, res) {
 
 
 
-        usuarioModel.deletar(email, token)
+        usuarioModel.deletar2(token)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
+function deletar3(req, res) {
+    var token = req.body.token;
+    var nome = req.body.nome;
+
+
+
+    if (token == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else{
+
+
+
+
+
+
+
+        usuarioModel.deletar3(nome ,token)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -516,6 +531,7 @@ module.exports = {
     testar,
     deletar,
     deletar2,
+    deletar3,
     cadastrar2,
     cadastrar3,
     insert_j5,

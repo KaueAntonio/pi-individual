@@ -19,7 +19,7 @@
     <div class="menutopo">
         <div class="container">
 
-            <h1>Sitezão do Kauezão</h1>
+            <img src="./fotos/logo.png" class="foto_logo"></img>
         </div>
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
@@ -33,7 +33,7 @@
     <div class="login-page" id="tela_cadastro">
         <div class="formulario">
             <div class="form">
-                <h1>Cadastro De Free Agent</h1>
+                <h2>Cadastro De Jogador</h2><br><br>
             <form class="register-form" id="form_cadastro" onsubmit="return cadastrar()">
                 <p>Primeiro Nome</p>
                 <input class="inputt" name="nome" type="text" placeholder="Apenas o Primeiro Nome">
@@ -136,7 +136,7 @@
 
             if (resposta.ok) {
                 window.alert("Cadastro realizado com sucesso!");
-                window.location = "index.html";
+                window.location = "sorteios.html";
                 limparFormulario();
                 finalizarAguardar();
             } else {

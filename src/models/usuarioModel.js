@@ -63,7 +63,7 @@ function cadastrar3(nome, idsteam) {
     return database.executar(instrucao);
 }
 function deletar(email, token) {
-    console.log("ACESSEI O DELETAR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
+    console.log("ACESSEI O DELETAR JOGADOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
     var instrucao = `
     DELETE FROM usuario WHERE token = '${token}' AND email = '${email}';
     `;
@@ -71,10 +71,19 @@ function deletar(email, token) {
     return database.executar(instrucao);
 }
 
-function deletar2(email, token) {
-    console.log("ACESSEI O DELETAR2 MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
+function deletar2(token) {
+    console.log("ACESSEI O DELETAR TIME JOGADORES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
     var instrucao = `
-    UPDATE usuario SET fkEquipe = 1 WHERE token = '${token}' AND email = '${email}';
+    UPDATE usuario SET fkEquipe = null WHERE fkEquipe = '${token}';
+    `;
+    console.log("Executando a instrução SQL: \n"+instrucao);
+    return database.executar(instrucao);
+}
+
+function deletar3(nome, token) {
+    console.log("ACESSEI O DELETAR TIME MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
+    var instrucao = `
+    DELETE FROM equipe WHERE idEquipe = '${token}' AND nomeeqp = '${nome}';
     `;
     console.log("Executando a instrução SQL: \n"+instrucao);
     return database.executar(instrucao);
@@ -132,6 +141,7 @@ module.exports = {
     listar2,
     listar3,
     deletar2,
+    deletar3,
     cadastrar2,
     cadastrar3,
     insert_j5,
