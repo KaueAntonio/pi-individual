@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
     <title>Inicio</title>
     <style>
-        body{
+        body {
             background-size: cover;
             background-image: url('./fotos/glock.png');
         }
     </style>
 </head>
+
 <body>
     <div class="menutopo">
         <div class="container">
@@ -25,17 +30,110 @@
             <a href="tirar-time.html">Tirar Times</a>
             <a href="sorteios.html">Jogadores</a>
             <a href="times.html">Times</a>
-            <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>    
-            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>    
+            <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>
+            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>
         </span>
     </div>
     <div class="container2" style="height: 100vh;">
         <div class="content">
             <h1 class="title_free">&ensp;Bem Vindo a UnitedGamers!!</h1>
-        <h3 class="title2_free">&ensp;Está cansado de jogar sozinho e está procurando alguém para fazer companhia? Entrou no lugar certo!<br>
-            &ensp;Crie novas amizades, viva novas experiências. Tudo isso e muito mais aqui na UnitedGamers! Cadastre seu card de jogador no site ou então entre em contato com jogadores que estão procurando a mesma experiência que você!<br>
-            &ensp;Com nossa ferramenta de tirar times você também pode sortear times de forma prática e eficiente!
-            <h2></h2>
-            </div></div>
+            <h3 class="title2_free">&ensp;Está cansado de jogar sozinho e está procurando alguém para fazer companhia?
+                Entrou no lugar certo!<br>
+                &ensp;Crie novas amizades, viva novas experiências. Tudo isso e muito mais aqui na UnitedGamers!
+                Cadastre seu card de jogador no site ou então entre em contato com jogadores que estão procurando a
+                mesma experiência que você!<br>
+                &ensp;Com nossa ferramenta de tirar times você também pode sortear times de forma prática e eficiente!<br><br><br>
+                <h1>Já somamos um total de <span id="jog">0</span> jogadores cadastrados! Venha fazer parte!</h1><br><br>
+                <div class="grafico">
+                <div class="graf1">
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
+<script>
+    var context2 = document.getElementById("chart2").getContext("2d");
+    context2.canvas.width = 1000;
+    context2.canvas.height = 300;
+
+    var configuration2 = {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: "Jogadores Cadastrados",
+                borderColor: '#34ebab',
+                backgroundColor: '#34ebab50',
+            }]
+        },
+        options: {
+
+            scales: {
+                xAxes: [{
+                    distribution: 'series',
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de Jogadores'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            animation: {
+                duration: 0
+            }
+        }
+    };
+
+
+    var chart2 = new Chart(context2, configuration2);
+    var len = 0;
+    var cont = 0;
+    function get_data() {
+
+        fetch("/usuarios/listar", {
+    method: "GET",
+}).then(function (resposta) {
+
+    resposta.json().then(function (data){
+       
+        len = data.length;
+        console.log(len)
+        
+    });
+}).catch(function(error){
+    console.error(`ERROR`, error);
+});
+
+            cont++;
+
+
+            if (chart2.data.labels.length == 10 && chart2.data.datasets[0].data.length == 10) {
+                chart2.data.labels.shift();
+                chart2.data.datasets[0].data.shift();
+            }
+
+            chart2.data.labels.push(cont);
+            chart2.data.datasets[0].data.push(parseFloat(len));
+            chart2.update();
+
+
+
+            document.getElementById('jog').textContent = len;
+
+
+        
+    }
+
+    setInterval(() => {
+        get_data();
+    }, 5000);
+</script>

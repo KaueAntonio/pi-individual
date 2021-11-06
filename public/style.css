@@ -473,3 +473,18 @@ a.acor:visited {
 .foto_logo{
     height: 85px;
 }
+.graf1{
+    width: 90%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.583);
+    border-radius: 15px;
+    margin-left: 10px;
+    float: left;
+    border: 2px solid gray;
+}
+
+.grafico{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
