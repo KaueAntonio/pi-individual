@@ -38,7 +38,7 @@ function entrar(email, senha) {
 function cadastrar(nome, email, idade, nickingame, ptt, id, token) {
     console.log("ACESSEI O CADASTRO MODEL DE JOGADOR \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
     var instrucao = `
-        INSERT INTO usuario (nome, email, idade, steam, patente, nick, token, fkEquipe) VALUES ('${nome}', '${email}', '${idade}', '${id}', '${ptt}', '${nickingame}', '${token}', 'fake@fake');
+        INSERT INTO usuario (nome, email, idade, steam, patente, nick, token) VALUES ('${nome}', '${email}', '${idade}', '${id}', '${ptt}', '${nickingame}', '${token}');
     `;
     console.log("Executando a instrução SQL: \n"+instrucao);
     return database.executar(instrucao);

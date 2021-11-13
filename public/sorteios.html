@@ -51,6 +51,8 @@ fetch("/usuarios/listar", {
         let len = data.length;
         for (let i = 0; i <= len; i++){
         let arquivo = data[i];
+
+        
             resultados.innerHTML += (`<div id="resultados1"><span class="span_title_card">${arquivo.nome} ${arquivo.idade}</span><div class="divmeio" >
                 <span class="span_subtitle">Nick InGame</span><br><span class="span_span">${arquivo.nick}</span><br><br>
                 <span class="span_subtitle">Patente</span><br><span class="span_span">${arquivo.patente}</span><br></div>
