@@ -8,13 +8,14 @@
     <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
     <style>
         body{
+            background: url('./fotos/m4a1s.png')no-repeat center center fixed;
             background-size: cover;
-            background-image: url('./fotos/m4a1s.png');
+            overflow: scroll;
         }
     </style>
     <title>Lista de Times</title>
 </head>
-<body>
+<body onload="ver_times()">
     <div class="menutopo">
         <div class="container">
 
@@ -23,7 +24,7 @@
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
-            <a href="sorteios.html">Jogadores</a>
+            <a href="jogadores.html">Jogadores</a>
             <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>    
             <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>     
         </span>
@@ -40,12 +41,12 @@
 </body>
 </html><span></span>
 <script>
-resultados.innerHTML = '';
+
+function ver_times(){resultados.innerHTML = '';
 fetch("/usuarios/listar2", {
     method: "GET",
 }).then(function (resposta) {
 
-    console.log("resposta: ", resposta);
 
     resposta.json().then(function (data){
         let cont_zero = 0;
@@ -98,7 +99,6 @@ fetch("/usuarios/listar2", {
     });
 }).catch(function(error){
     console.error(`ERROR`, error);
-});
-    
+});}
 
 </script>

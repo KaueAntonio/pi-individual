@@ -29,7 +29,7 @@
         <span class="textolink">
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
-            <a href="sorteios.html">Jogadores</a>
+            <a href="jogadores.html">Jogadores</a>
             <a href="times.html">Times</a>
             <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>
             <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>
@@ -56,6 +56,8 @@
 
 </html>
 <script>
+    
+    var minuto;
     var context2 = document.getElementById("chart2").getContext("2d");
     context2.canvas.width = 1000;
     context2.canvas.height = 300;
@@ -107,28 +109,35 @@
     resposta.json().then(function (data){
        
         len = data.length;
-        console.log(len)
         
     });
 }).catch(function(error){
     console.error(`ERROR`, error);
 });
 
+
+    
             cont++;
+    var data = new Date;
+
 
 
             if (chart2.data.labels.length == 10 && chart2.data.datasets[0].data.length == 10) {
                 chart2.data.labels.shift();
                 chart2.data.datasets[0].data.shift();
             }
+            if(minuto != data.getMinutes()){
 
-            chart2.data.labels.push(cont);
+                chart2.data.labels.push(`${data.getHours()}:${data.getMinutes()}`);
+                minuto = data.getMinutes();
+            }
+            document.getElementById('jog').textContent = len;
+            
             chart2.data.datasets[0].data.push(parseFloat(len));
             chart2.update();
 
 
 
-            document.getElementById('jog').textContent = len;
 
 
         
@@ -136,5 +145,5 @@
 
     setInterval(() => {
         get_data();
-    }, 2000);
+    }, 1000);
 </script>

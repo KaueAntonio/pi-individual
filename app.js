@@ -10,8 +10,6 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
 var listarRouter = require("./src/routes/usuarios");
 
 app.use(express.json());
@@ -22,10 +20,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/avisos", avisosRouter);
 app.use("/listar", listarRouter);
-app.use("/listar2", listarRouter);
-app.use("/medidas", medidasRouter)
 
 app.listen(PORTA, function() {
     console.log(`Servidor do site está rodando rodando: http://localhost:${PORTA} \n

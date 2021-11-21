@@ -41,6 +41,8 @@ function listar2(req, res) {
     );
 }
 
+
+
 function listar3(req, res) {
     usuarioModel.listar3()
     .then(function (resultado) {
@@ -57,6 +59,8 @@ function listar3(req, res) {
         }
     );
 }
+
+
 
 function entrar (req, res) {
     var email = req.body.email;
@@ -527,7 +531,7 @@ module.exports = {
     cadastrar,
     listar,   
     listar2,   
-    listar3,   
+    listar3,  
     testar,
     deletar,
     deletar2,

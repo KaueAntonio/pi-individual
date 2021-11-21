@@ -8,13 +8,14 @@
     <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
     <style>
         body{
+            background: url('./fotos/m4a1s.png')no-repeat center center fixed;
             background-size: cover;
-            background-image: url('./fotos/m4a1s.png');
+            overflow: scroll;
         }
     </style>
     <title>Lista de Jogadores</title>
 </head>
-<body>
+<body onload="ver_jogadores()">
     <div class="menutopo">
         <div class="container">
 
@@ -39,21 +40,20 @@
 </body>
 </html><span></span>
 <script>
-resultados.innerHTML = '';
+function ver_jogadores(){
+    resultados.innerHTML = '';
 fetch("/usuarios/listar", {
     method: "GET",
 }).then(function (resposta) {
 
-    console.log("resposta: ", resposta);
 
     resposta.json().then(function (data){
        
         let len = data.length;
         for (let i = 0; i <= len; i++){
         let arquivo = data[i];
-
         
-            resultados.innerHTML += (`<div id="resultados1"><span class="span_title_card">${arquivo.nome} ${arquivo.idade}</span><div class="divmeio" >
+            resultados.innerHTML += (`<div id="resultados1"><span class="span_title_card">${arquivo.nome} ${arquivo.idade}y</span><div class="divmeio" >
                 <span class="span_subtitle">Nick InGame</span><br><span class="span_span">${arquivo.nick}</span><br><br>
                 <span class="span_subtitle">Patente</span><br><span class="span_span">${arquivo.patente}</span><br></div>
                 <div class="divbotao" ><a class="botaosteam" href="https://steamcommunity.com/id/${arquivo.steam}/">Ver Steam</a></div></div>`);
@@ -62,5 +62,5 @@ fetch("/usuarios/listar", {
 }).catch(function(error){
     console.error(`ERROR`, error);
 });
-    
+}
 </script>

@@ -10,8 +10,9 @@
     <title>Login</title>
     <style>
         body{
+            background: url('./fotos/awp.png')no-repeat center center fixed;
             background-size: cover;
-            background-image: url('./fotos/awp.png');
+            overflow: scroll;
         }
     </style>
 </head>
@@ -25,7 +26,7 @@
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
             <a href="times.html">Times</a>
-            <a href="sorteios.html">Jogadores</a>   
+            <a href="jogadores.html">Jogadores</a>   
             <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>    
         </span>
     </div>
@@ -35,17 +36,16 @@
         <div class="form2">
             <h2>Remover Card De Free Agent</h2><br><br><br>
                 <div class="formulario">
-                    <form id="form_login" class="login-form" onsubmit="return entrar()">
+                    <form id="form_login" class="login-form">
                         <p>E-mail</p>
                         <input name="email" class="inputt" type="text" placeholder="Insira seu E-mail">
                         <br>
                         <p>Token</p>
                         <input name="token" class="inputt" type="password" placeholder="******">
                         <br>
-                        <input class="btnin" type="submit" value="Entrar" onclick="entrarlogin()">
-                    </input>
+                        
                     </form>
-
+                    <button class="btnin" onclick="entrar()">Remover Jogador</button>
 
                 </div>
 
@@ -67,7 +67,6 @@
     }
 
     function entrar() {
-        aguardar();
 
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
 
@@ -77,16 +76,13 @@
         console.log("FORM LOGIN: ", email);
         console.log("FORM SENHA: ", token);
 
-        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
         if (email == "" || token== "") {
             window.alert("Preencha todos os campos para prosseguir!");
-            finalizarAguardar();
             return false;
         }
 
         if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
             window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
-            finalizarAguardar();
             return false;
         }
 
@@ -95,19 +91,15 @@
             body: formulario
         }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
 
             if (resposta.ok) {
                 window.alert("Cadastro Deletado Com Sucesso!!");
-                window.location = "sorteios.html";
-                limparFormulario();
-                finalizarAguardar();
+                window.location = "jogadores.html";
             } else {
                 throw("Houve um erro ao tentar excluir o cadastro!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
 
 

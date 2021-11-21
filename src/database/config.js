@@ -32,7 +32,7 @@ var mySqlConfig = {
     user: "root",
     database: "projetoindividual",
     password: "kaue4991",
-    port: 3320
+    port: 3306
 };
 
 
@@ -43,7 +43,6 @@ function executar(instrucao) {
             sql.connect(sqlServerConfig).then(function () {
                 return sql.query(instrucao);
             }).then(function (resultados) {
-                console.log(resultados);
                 resolve(resultados.recordset);
             }).catch(function (erro) {
                 reject(erro);
@@ -62,7 +61,6 @@ function executar(instrucao) {
                 if (erro) {
                     reject(erro);
                 }
-                console.log(resultados);
                 resolve(resultados);
             });
             conexao.on('error', function (erro) {

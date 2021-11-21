@@ -10,8 +10,9 @@
     <title>Deletar</title>
     <style>
         body{
+            background: url('./fotos/awp.png')no-repeat center center fixed;
             background-size: cover;
-            background-image: url('./fotos/awp.png');
+            overflow: scroll;
         }
     </style>
 </head>
@@ -25,7 +26,7 @@
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
             <a href="times.html">Times</a>
-            <a href="sorteios.html">Jogadores</a>   
+            <a href="jogadores.html">Jogadores</a>   
             <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>   
         </span>
     </div>
@@ -35,17 +36,16 @@
         <div class="form2">
             <h2>Remover Jogador</h2><br><br><br>
                 <div class="formulario">
-                    <form id="form_login" class="login-form" onsubmit="return entrar2()">
+                    <form id="form_login" class="login-form">
                         <p>Nome do Time (igual ao de cadastro)</p>
                         <input name="nome" class="inputt" type="text" placeholder="Insira o Nome do Time">
                         <br>
                         <p>Token do Time</p>
                         <input name="token" class="inputt" type="password" placeholder="******">
                         <br>
-                        <input class="btnin" type="submit" value="Entrar"">
-                    </input>
+                        
                     </form>
-
+                    <button class="btnin" onclick="entrar2()">Remover Time</button>
 
                 </div>
 
@@ -69,20 +69,16 @@ var nome = '';
     }
 
     function entrar2() {
-        aguardar();
 
        formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
 
         nome = formulario.get("nome");
         token = formulario.get("token");
 
-        console.log("FORM LOGIN: ", nome);
-        console.log("FORM SENHA: ", token);
 
         // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
         if (nome == "" || token== "") {
             window.alert("Preencha todos os campos para prosseguir!");
-            finalizarAguardar();
             return false;
         }
 
@@ -92,28 +88,20 @@ var nome = '';
             body: formulario
         }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                return deletar_time()
-                window.location = "times.html";
             } else {
                 throw("Houve um erro ao tentar excluir o time!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
 
-        deletar_time();
-        return false;
+        deletar_time2();
     }
 
 
 
-    function deletar_time(){
-                setTimeout( deletar_time2(), 5000);
-    }
 
 
 
@@ -124,19 +112,15 @@ var nome = '';
             body: formulario
         }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
 
             if (resposta.ok) {
                 window.alert("Time Deletado Com Sucesso!");
                 window.location = "times.html";
-                limparFormulario();
-                finalizarAguardar();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 1!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
 
         return false;
