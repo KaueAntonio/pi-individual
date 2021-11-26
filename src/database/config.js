@@ -43,6 +43,7 @@ function executar(instrucao) {
             sql.connect(sqlServerConfig).then(function () {
                 return sql.query(instrucao);
             }).then(function (resultados) {
+                console.log(resultados);
                 resolve(resultados.recordset);
             }).catch(function (erro) {
                 reject(erro);
@@ -57,6 +58,8 @@ function executar(instrucao) {
             var conexao = mysql.createConnection(mySqlConfig);
             conexao.connect();
             conexao.query(instrucao, function (erro, resultados) {
+
+                console.log(resultados);
                 conexao.end();
                 if (erro) {
                     reject(erro);

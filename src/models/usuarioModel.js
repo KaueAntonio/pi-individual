@@ -17,7 +17,7 @@ function listar2() {
 
 function listar3() {
     var instrucao = `
-    select * from equipe where nomeeqp;
+    select * from equipe;
     `;
     console.log('Listando Usuários3');
     return database.executar(instrucao);

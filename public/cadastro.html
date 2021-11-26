@@ -85,10 +85,10 @@ var steam_usuarios = [];
     function limparFormulario() {
         document.getElementById("form_cadastro").reset();
     }
-
+var formulario;
     function cadastrar() {
 
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+        formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
 
         nome = formulario.get("nome");
         email = formulario.get("email");
@@ -134,7 +134,7 @@ function validar(){
         return false;
     }
 
-    if (patente.length > 18){
+    if (ptt.length > 18){
         alert('A Patente pode ter no máximo 18 dígitos');
         return false;
     }
@@ -144,13 +144,15 @@ function validar(){
         return false;
     }
 
-    if (token.indexOf('@') || token.indexOf('#') || token.indexOf('!') || token.indexOf('%') || token.indexOf('&') || token.indexOf('*') || token.indexOf('$')){
+    if (token.indexOf('@') != -1 || token.indexOf('#') != -1 || token.indexOf('!') != -1 || token.indexOf('%') != -1 || token.indexOf('&') != -1 || token.indexOf('*') != -1 || token.indexOf('$') != -1){
+        
+    }else{
         alert('Token fraco demais! Coloque pelo menos 1 caractere especial');
         return false;
     }
 
-    if (nickingame.length > 8){
-        alert('Seu nick pode ter no máximo 8 dígitos!');
+    if (nickingame.length > 15){
+        alert('Seu nick pode ter no máximo 14 dígitos!');
         return false;
     }
 

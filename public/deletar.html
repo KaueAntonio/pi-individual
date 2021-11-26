@@ -16,7 +16,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="tudo()">
     <div class="menutopo">
         <div class="container">
 
@@ -73,16 +73,17 @@
         var email = formulario.get("email");
         var token = formulario.get("token");
 
-        console.log("FORM LOGIN: ", email);
-        console.log("FORM SENHA: ", token);
 
-        if (email == "" || token== "") {
-            window.alert("Preencha todos os campos para prosseguir!");
+        if (email_usuarios.indexOf(email) == -1){
+            alert('Esse email não existe!');
             return false;
         }
 
-        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
-            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+        let posicao_token = email_usuarios.indexOf(email);
+
+
+        if (token_usuarios[posicao_token] != token){
+            alert('As Credenciais não se coincidem!');
             return false;
         }
 
@@ -105,5 +106,26 @@
 
         return false;
     }
+    var token_usuarios = [];
+    var email_usuarios = [];
+    function tudo(){
+    fetch("/usuarios/listar", {
+    method: "GET",
+}).then(function (resposta) {
 
+
+    resposta.json().then(function (data){
+        let len = data.length;
+
+        for (let i = 0; i <= len; i++){
+        let arquivo = data[i];
+            token_usuarios.push(arquivo.token);
+            email_usuarios.push(arquivo.email);
+    }
+
+    });
+}).catch(function(error){
+    console.error(`ERROR`, error);
+});
+}
 </script>

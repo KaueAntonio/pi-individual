@@ -48,8 +48,8 @@
 <input type="text" id="n10" placeholder="Jogador 10"><br>
 <button onclick="ver()">Tirar Time</button><br><br><br>
 <div id="results">
-<div id="resultados2"></div>
-<div id="resultados3"></div>
+<div id="resultados2" style="display:none"></div>
+<div id="resultados3" style="display:none"></div>
 </div>
 </div></div>
 </body>
@@ -149,22 +149,25 @@
         } else {
             seleca2.push(n10.value);
         }
-        resultados2.innerHTML = (`<h3>Time 1</h3><br>
-    ${seleca1[0]}<br>
-    ${seleca1[1]}<br>
-    ${seleca1[2]}<br>
-    ${seleca1[3]}<br>
-    ${seleca1[4]}<br>
+
+        resultados2.style.display = "block";
+        resultados3.style.display = "block";
+        resultados2.innerHTML = (`<h3 style="font-weight: bolder;">Time 1</h3><br>
+    ${seleca1[0]}<br><br>
+    ${seleca1[1]}<br><br>
+    ${seleca1[2]}<br><br>
+    ${seleca1[3]}<br><br>
+    ${seleca1[4]}<br><br>
     `);
 
     
 
-    resultados3.innerHTML = (`<h3>Time 2</h3><br>
-    ${seleca2[0]}<br>
-    ${seleca2[1]}<br>
-    ${seleca2[2]}<br>
-    ${seleca2[3]}<br>
-    ${seleca2[4]}<br>
+    resultados3.innerHTML = (`<h3 style="font-weight: bolder;">Time 2</h3><br>
+    ${seleca2[0]}<br><br>
+    ${seleca2[1]}<br><br>
+    ${seleca2[2]}<br><br>
+    ${seleca2[3]}<br><br>
+    ${seleca2[4]}<br><br>
     `);
 
 

@@ -50,7 +50,7 @@ fetch("/usuarios/listar", {
     resposta.json().then(function (data){
        
         let len = data.length;
-        for (let i = 0; i <= len; i++){
+        for (let i = 0; i < len; i++){
         let arquivo = data[i];
         
             resultados.innerHTML += (`<div id="resultados1"><span class="span_title_card">${arquivo.nome} ${arquivo.idade}y</span><div class="divmeio" >

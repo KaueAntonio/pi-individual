@@ -16,7 +16,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="tudo()">
     <div class="menutopo">
         <div class="container">
 
@@ -76,12 +76,17 @@ var nome = '';
         token = formulario.get("token");
 
 
-        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-        if (nome == "" || token== "") {
-            window.alert("Preencha todos os campos para prosseguir!");
+        if (nome_equipe.indexOf(nome) == -1){
+            alert('Não existe uma equipe com esse nome!!');
             return false;
         }
 
+        let momento = nome_equipe.indexOf(nome);
+
+        if (tokeneqp[momento] != token){
+            alert('Credenciais Incorretas!!');
+            return false;
+        }
         
         fetch("/usuarios/deletar2", {
             method: "POST",
@@ -126,5 +131,38 @@ var nome = '';
         return false;
     }
 
+    var tokeneqp = [];
+    var nome_equipe = [];
+
+    function tudo(){
+    fetch("/usuarios/listar3", {
+    method: "GET",
+}).then(function (resposta) {
+
+
+    resposta.json().then(function (data){
+        let len = data.length;
+
+        for (let i = 0; i <= len; i++){
+        let arquivo = data[i];
+            tokeneqp.push(arquivo.idEquipe);
+            nome_equipe.push(arquivo.nomeeqp);
+
+
+    }
+
+
+
+
+
+    
+
+
+    
+    });
+}).catch(function(error){
+    console.error(`ERROR`, error);
+});
+}
 
 </script>
