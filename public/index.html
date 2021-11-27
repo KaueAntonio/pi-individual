@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body>
+<body onload="get_data()">
     <div class="menutopo">
         <div class="container">
 
@@ -43,107 +43,79 @@
                 &ensp;Crie novas amizades, viva novas experiências. Tudo isso e muito mais aqui na UnitedGamers!
                 Cadastre seu card de jogador no site ou então entre em contato com jogadores que estão procurando a
                 mesma experiência que você!<br>
-                &ensp;Com nossa ferramenta de tirar times você também pode sortear times de forma prática e eficiente!<br><br><br>
-                <h1>Já somamos um total de <span id="jog">0</span> jogadores cadastrados! Venha fazer parte!</h1><br><br>
+                &ensp;Com nossa ferramenta de tirar times você também pode sortear times de forma prática e
+                eficiente!<br><br><br>
+                <h1>Já somamos um total de <span id="jog">0</span> jogadores cadastrados! Venha fazer parte!</h1>
+                <br><br><br><br>
                 <div class="grafico">
-                <div class="graf1">
-                    <canvas id="chart2"></canvas>
+                    <div class="graf1">
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 </body>
 
 </html>
 <script>
-    
+    var inicio = 0;
+    var meio;
+    var fim;
     var minuto;
-    var context2 = document.getElementById("chart2").getContext("2d");
-    context2.canvas.width = 1000;
-    context2.canvas.height = 300;
 
-    var configuration2 = {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: "Jogadores Cadastrados",
-                borderColor: '#34ebab',
-                backgroundColor: '#34ebab50',
-            }]
-        },
-        options: {
+    var len;
 
-            scales: {
-                xAxes: [{
-                    distribution: 'series',
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Número de Jogadores'
-                    },
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            },
-            animation: {
-                duration: 0
-            }
-        }
-    };
-
-
-    var chart2 = new Chart(context2, configuration2);
-    var len = 0;
-    var cont = 0;
     function get_data() {
 
         fetch("/usuarios/listar", {
-    method: "GET",
-}).then(function (resposta) {
+            method: "GET",
+        }).then(function (resposta) {
 
-    resposta.json().then(function (data){
-       
-        len = data.length;
-        
-    });
-}).catch(function(error){
-    console.error(`ERROR`, error);
-});
+            resposta.json().then(function (data) {
 
-
-    
-            cont++;
-    var data = new Date;
+                len = data.length;
+                meio = len / 2;
+                fim = len;
+                document.getElementById('jog').innerHTML = len;
+                grafico();
+            });
+        }).catch(function (error) {
+            console.error(`ERROR`, error);
+        });
 
 
-
-            if (chart2.data.labels.length == 10 && chart2.data.datasets[0].data.length == 10) {
-                chart2.data.labels.shift();
-                chart2.data.datasets[0].data.shift();
-            }
-            if(minuto != data.getMinutes()){
-
-                chart2.data.labels.push(`${data.getHours()}:${data.getMinutes()}`);
-                minuto = data.getMinutes();
-            }
-            document.getElementById('jog').textContent = len;
-            
-            chart2.data.datasets[0].data.push(parseFloat(len));
-            chart2.update();
-
-
-
-
-
-        
     }
 
-    setInterval(() => {
-        get_data();
-    }, 1000);
+    function grafico() {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        ctx.canvas.width = 1000;
+        ctx.canvas.height = 300;
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['', 'JOGADORES CADASTRADOS', ''],
+                datasets: [{
+                    label: 'JOGADORES',
+                    data: [inicio, meio, fim],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
 </script>

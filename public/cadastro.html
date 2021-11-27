@@ -82,10 +82,7 @@ var nome;
 var token_usuarios = [];
 var email_usuarios = [];
 var steam_usuarios = [];
-    function limparFormulario() {
-        document.getElementById("form_cadastro").reset();
-    }
-var formulario;
+    
     function cadastrar() {
 
         formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
@@ -98,7 +95,7 @@ var formulario;
         id = formulario.get("idsteam");
         token = formulario.get("token");
 
-        
+            
         
         validar();
 
