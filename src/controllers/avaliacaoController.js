@@ -22,9 +22,9 @@ function enviar(req, res) {
     var titulo = req.body.titulo;
     var estrelas = req.body.nota;
     var mensagem = req.body.mensagem;
-    var fkUsuario = req.body.fkUsuario;
+    var fkToken = req.body.fkUsuario;
 
-    avaliacaoModel.enviar(titulo, estrelas, mensagem, fkUsuario)
+    avaliacaoModel.enviar(titulo, estrelas, mensagem, fkToken)
     .then(function (resultado) {
         
             res.status(200).json(resultado);
@@ -38,7 +38,25 @@ function enviar(req, res) {
     );
 }
 
+function deletar(req, res) {
+
+    var token = req.body.token;
+
+    avaliacaoModel.deletar(token)
+    .then(function (resultado) {
+        
+            res.status(200).json(resultado);
+        
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 module.exports = {
     listar,
-    enviar
+    enviar,
+    deletar
 }

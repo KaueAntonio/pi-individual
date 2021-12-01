@@ -11,4 +11,9 @@ router.post("/enviar", function(req, res){
     avaliacaoController.enviar(req, res);
 });
 
+router.post("/deletar", function(req, res){
+    avaliacaoController.deletar(req, res);
+});
+
+
 module.exports = router;

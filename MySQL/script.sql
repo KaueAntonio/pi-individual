@@ -10,18 +10,16 @@ steamResp VARCHAR(30)
 );
 
 create table usuario (
-idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+token VARCHAR(30) PRIMARY KEY,
 nome VARCHAR(30),
 email VARCHAR(30),
 idade INT,
 steam VARCHAR(30),
 patente VARCHAR(30),
 nick VARCHAR(30),
-token VARCHAR(30),
 fkEquipe varchar(30),
 FOREIGN KEY (fkEquipe) REFERENCES equipe(idEquipe)
 );
-
 
 CREATE TABLE avaliacoes (
 idAvaliacao INT PRIMARY KEY AUTO_INCREMENT,
@@ -31,11 +29,11 @@ mensagem VARCHAR(150),
 dia INT,
 mes INT,
 ano INT,
-fkJogador INT,
-FOREIGN KEY (fkJogador) REFERENCES usuario(idUsuario)
+fkToken VARCHAR(30),
+FOREIGN KEY (fkToken) REFERENCES usuario(token)
 
 );
-
+select * from usuario left join equipe on fkEquipe = idEquipe;
 INSERT INTO usuario (nome, email, idade, steam, patente, nick, token) VALUES
 ('Kaue Antonio', 'kaue36123@gmail.com', 20, 'mandrakaodelas', 'Supremo', 'MaNdRaKe', 'kaue@123'),
 ('Gustavo Machado', 'g.machado@gmail.com', 20, 'xobonho', 'Ouro 3', 'Coxinha', 'xoba@123'),
@@ -49,7 +47,8 @@ INSERT INTO usuario (nome, email, idade, steam, patente, nick, token) VALUES
 
 INSERT INTO equipe VALUES
 ('jdj@123', 'Jordânia de Jerusalém', 'mandrakaodelas');
-
+select * from equipe;
+select * from usuario;
 UPDATE usuario SET fkEquipe = 'jdj@123' WHERE token = 'kaue@123';
 UPDATE usuario SET fkEquipe = 'jdj@123' WHERE token = 'trinca@123';
 UPDATE usuario SET fkEquipe = 'jdj@123' WHERE token = 'jawwad@123';

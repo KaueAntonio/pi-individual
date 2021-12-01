@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +9,14 @@
     <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
     <title>Login</title>
     <style>
-        body{
+        body {
             background: url('./fotos/awp.png')no-repeat center center fixed;
             background-size: cover;
             overflow: scroll;
         }
     </style>
 </head>
+
 <body onload="tudo()">
     <div class="menutopo">
         <div class="container">
@@ -26,55 +28,61 @@
             <a href="tirar-time.html">Tirar Times</a>
             <a href="times.html">Times</a>
             <a href="avalie.html">Avalie</a>
-            <a href="jogadores.html">Jogadores</a>   
-            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>    
+            <a href="jogadores.html">Jogadores</a>
+            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>
         </span>
     </div>
-    
+
 
     <div class="login-page" id="tela_login">
         <div class="form2">
             <h2>Remover Card De Free Agent</h2><br><br><br>
-                <div class="formulario">
-                    <form id="form_login" class="login-form">
-                        <p>E-mail</p>
-                        <input name="email" class="inputt" type="text" placeholder="Insira seu E-mail">
-                        <br>
-                        <p>Token</p>
-                        <input name="token" class="inputt" type="password" placeholder="******">
-                        <br>
-                        
-                    </form>
-                    <button class="btnin" onclick="entrar()">Remover Jogador</button>
+            <div class="formulario">
+                <form id="form_login" class="login-form">
+                    <p>E-mail</p>
+                    <input name="email" class="inputt" type="text" placeholder="Insira seu E-mail">
+                    <br>
+                    <p>Token</p>
+                    <input name="token" class="inputt" type="password" placeholder="******">
+                    <br>
 
-                </div>
+                </form>
+                <button class="btnin" onclick="entrar()">Remover Jogador</button>
 
-                <div id="div_aguardar" class="loading-div">
-                    
-                </div>
+            </div>
 
-                <div id="div_erros_login">
+            <div id="div_aguardar" class="loading-div">
 
-                </div>
+            </div>
+
+            <div id="div_erros_login">
+
             </div>
         </div>
+    </div>
 </body>
+
 </html>
 <script>
-
     function limparFormulario() {
         document.getElementById("form_login").reset();
     }
-
+    var formulario;
+    var email;
+    var token;
+    var token_usuarios = [];
+    var email_usuarios = [];
+    var token_times = [];
+    var token_eqps = [];
     function entrar() {
 
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
+        formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
 
-        var email = formulario.get("email");
-        var token = formulario.get("token");
+        email = formulario.get("email");
+        token = formulario.get("token");
 
 
-        if (email_usuarios.indexOf(email) == -1){
+        if (email_usuarios.indexOf(email) == -1) {
             alert('Esse email não existe!');
             return false;
         }
@@ -82,11 +90,58 @@
         let posicao_token = email_usuarios.indexOf(email);
 
 
-        if (token_usuarios[posicao_token] != token){
+        if (token_usuarios[posicao_token] != token) {
             alert('As Credenciais não se coincidem!');
             return false;
         }
+        
+        tudo2();
+        
 
+    }
+   
+
+    function tudo() {
+        fetch("/usuarios/listar", {
+            method: "GET",
+        }).then(function (resposta) {
+
+
+            resposta.json().then(function (data) {
+                let len = data.length;
+
+                for (let i = 0; i < len; i++) {
+                    let arquivo = data[i];
+                    token_usuarios.push(arquivo.token);
+                    email_usuarios.push(arquivo.email);
+                    token_times.push(arquivo.fkEquipe);
+                    token_eqps.push(arquivo.idEquipe);
+                }
+
+            });
+        }).catch(function (error) {
+            console.error(`ERROR`, error);
+        });
+    }
+
+    function deletar_comentario() {
+        fetch("/avaliacoes/deletar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+
+            if (resposta.ok) {
+                deletar_jogador();
+            } else {
+                throw ("Houve um erro ao tentar excluir o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function deletar_jogador() {
         fetch("/usuarios/deletar", {
             method: "POST",
             body: formulario
@@ -97,7 +152,7 @@
                 window.alert("Cadastro Deletado Com Sucesso!!");
                 window.location = "jogadores.html";
             } else {
-                throw("Houve um erro ao tentar excluir o cadastro!");
+                throw ("Houve um erro ao tentar excluir o cadastro!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
@@ -106,27 +161,32 @@
 
         return false;
     }
-    var token_usuarios = [];
-    var email_usuarios = [];
-    
-    function tudo(){
-    fetch("/usuarios/listar", {
-    method: "GET",
-}).then(function (resposta) {
 
 
-    resposta.json().then(function (data){
-        let len = data.length;
+    function tudo2() {
+        fetch("/usuarios/listar", {
+            method: "GET",
+        }).then(function (resposta) {
 
-        for (let i = 0; i < len; i++){
-        let arquivo = data[i];
-            token_usuarios.push(arquivo.token);
-            email_usuarios.push(arquivo.email);
+
+            resposta.json().then(function (data) {
+                let len = data.length;
+
+                for (let i = 0; i < len; i++) {
+                    let arquivo = data[i];
+                    if (arquivo.token == token){
+                        if (arquivo.fkEquipe != null){
+                            alert('Esse jogador faz parte de um time!! Exclua o time antes de excluir o jogador!!');
+                            windows.location = 'deletartime.html';
+                            return false;
+                        }
+                    }
+                }
+                deletar_comentario();
+
+            });
+        }).catch(function (error) {
+            console.error(`ERROR`, error);
+        });
     }
-
-    });
-}).catch(function(error){
-    console.error(`ERROR`, error);
-});
-}
 </script>
