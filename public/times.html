@@ -25,6 +25,7 @@
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
             <a href="jogadores.html">Jogadores</a>
+            <a href="avalie.html">Avalie</a>
             <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>    
             <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>     
         </span>
@@ -54,12 +55,10 @@ fetch("/usuarios/listar2", {
         let cont_dois = 2;
         let cont_tres = 3;
         let cont_quatro = 4;
-        let dtlen = data.length;
-        let reslen = dtlen % 5;
-        let len = (dtlen / 5) + reslen;
-        for (let i = 1; i <= len; i++){
-            let arquivotexto = JSON.stringify(data);
-        let arquivo = JSON.parse(arquivotexto);
+        let reslen = data.length % 5;
+        let len = (data.length - reslen) / 5;
+        for (let i = 0; i < len; i++){
+        let arquivo = data;
             resultados.innerHTML += (`<div class="times">
                 <div class="time">
                     <div class="nome_time">

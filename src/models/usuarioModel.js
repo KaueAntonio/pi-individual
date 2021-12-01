@@ -9,7 +9,7 @@ function listar() {
 }
 function listar2() {
     var instrucao = `
-    select nomeeqp, steamResp, nick, patente from equipe join usuario on fkEquipe = idEquipe;
+    select nomeeqp, steamResp, nick, patente from equipe join usuario on fkEquipe = idEquipe order by nomeeqp;
     `;
     console.log('Listando Times');
     return database.executar(instrucao);
@@ -25,9 +25,9 @@ function listar3() {
 
 
 
-function entrar(email, senha) {
+function entrar(email, token) {
     var instrucao = `
-        SELECT * FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT * FROM usuario WHERE email = '${email}' AND token = '${token}';
     `;
     console.log('Logando Jogador');
     return database.executar(instrucao);
@@ -117,7 +117,7 @@ function insert_j5(token5, token_time) {
     var instrucao = `
     UPDATE usuario SET fkEquipe = '${token_time}' WHERE token = '${token5}';
     `;
-    cconsole.log('Inserindo Jogador 5 na Equipe de Token: '+ token5);
+    console.log('Inserindo Jogador 5 na Equipe de Token: '+ token5);
     return database.executar(instrucao);
 }
 module.exports = {

@@ -20,7 +20,6 @@ router.get("/listar3", function(req, res) {
 });
 
 
-
 router.post("/cadastrar", function(req, res) {
     usuarioController.cadastrar(req, res);
 });

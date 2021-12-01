@@ -27,8 +27,9 @@
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
             <a href="times.html">Times</a>
+            <a href="avalie.html">Avalie</a>
             <a href="jogadores.html">Jogadores</a>
-            <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>    
+            <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>
         </span>
     </div>
 
@@ -36,7 +37,8 @@
         <div class="formulario">
             <div class="form">
                 <h2>Cadastro De Time</h2>
-                <br><h4>(Lembrando que Todos os Jogadores Devem Estar Cadastrados no Site)</h4><br><br>
+                <br>
+                <h4>(Lembrando que Todos os Jogadores Devem Estar Cadastrados no Site)</h4><br><br>
                 <form class="register-form" id="form_cadastro">
                     <p>Nome do Time</p>
                     <input class="inputt" name="nome" type="text" placeholder="Nome Do Time">
@@ -90,9 +92,10 @@
     var token5 = '';
     var token_time = '';
     var token_usuarios = [];
-var token_times = [];
-var jogador_fkequipe = [];
-var nome_equipes = [];
+    var token_times = [];
+    var jogador_fkequipe = [];
+    var nome_equipes = [];
+
     function cadastrar() {
         formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
 
@@ -105,11 +108,11 @@ var nome_equipes = [];
         token5 = formulario.get("token5");
         token_time = formulario.get("token_time");
 
-       
-       validar();
-      
 
-        
+        validar();
+
+
+
     }
 
 
@@ -118,87 +121,88 @@ var nome_equipes = [];
 
 
 
-function validar(){
-    if (nome == "" || idsteam == "" || token1 == "" || token2 == "" || token3 == "" || token4 == "" || token5 == "" || token_time == "") {
+    function validar() {
+        if (nome == "" || idsteam == "" || token1 == "" || token2 == "" || token3 == "" || token4 == "" || token5 ==
+            "" || token_time == "") {
 
-window.alert("Preencha todos os campos para prosseguir!");
-if (nome == "") {
-    alert('nome está em branco');
-}
-if (idsteam == "") {
-    alert('Id do responsável está em branco');
-}
-if (token5 == 0 || token5 == '') {
-    alert('token5 está em incorreta');
-}
-if (token1 == 0 || token1 == '') {
-    alert('nick está em branco');
-}
-if (token4 == 0 || token4 == '') {
-    alert('token4 está em branco');
-}
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (nome == "") {
+                alert('nome está em branco');
+            }
+            if (idsteam == "") {
+                alert('Id do responsável está em branco');
+            }
+            if (token5 == 0 || token5 == '') {
+                alert('token5 está em incorreta');
+            }
+            if (token1 == 0 || token1 == '') {
+                alert('nick está em branco');
+            }
+            if (token4 == 0 || token4 == '') {
+                alert('token4 está em branco');
+            }
 
-if (token3 == 0 || token3 == '') {
-    alert('token3 está em branco');
-}
-if (token2 == 0 || token2 == '') {
-    alert('token2 está em branco');
-}
-if (token_time == 0 || token_time == '') {
-    alert('token2 está em branco');
-}
+            if (token3 == 0 || token3 == '') {
+                alert('token3 está em branco');
+            }
+            if (token2 == 0 || token2 == '') {
+                alert('token2 está em branco');
+            }
+            if (token_time == 0 || token_time == '') {
+                alert('token2 está em branco');
+            }
 
-return false;
-}
+            return false;
+        }
 
-if (token_usuarios.indexOf(token1) == -1){
-        alert('Token do jogador 1 não existe!!');
-        return false;
-    }
-    if (token_usuarios.indexOf(token2) == -1){
-        alert('Token do jogador 2 não existe!!');
-        return false;
-    }
-    if (token_usuarios.indexOf(token3) == -1){
-        alert('Token do jogador 3 não existe!!');
-        return false;
-    }
-    if (token_usuarios.indexOf(token4) == -1){
-        alert('Token do jogador 4 não existe!!');
-        return false;
-    }
-    if (token_usuarios.indexOf(token5) == -1){
-        alert('Token do jogador 5 não existe!!');
-        return false;
-    }
-    let len = token_usuarios.length;
-    for (let m = 0; m <= len; m++){
+        if (token_usuarios.indexOf(token1) == -1) {
+            alert('Token do jogador 1 não existe!!');
+            return false;
+        }
+        if (token_usuarios.indexOf(token2) == -1) {
+            alert('Token do jogador 2 não existe!!');
+            return false;
+        }
+        if (token_usuarios.indexOf(token3) == -1) {
+            alert('Token do jogador 3 não existe!!');
+            return false;
+        }
+        if (token_usuarios.indexOf(token4) == -1) {
+            alert('Token do jogador 4 não existe!!');
+            return false;
+        }
+        if (token_usuarios.indexOf(token5) == -1) {
+            alert('Token do jogador 5 não existe!!');
+            return false;
+        }
+        let len = token_usuarios.length;
+        for (let m = 0; m <= len; m++) {
 
-            if (token_times[m] == token_time){
+            if (token_times[m] == token_time) {
                 alert('Esse token de equipe já existe!!');
                 return false;
             }
-            if (nome_equipes[m] == nome){
+            if (nome_equipes[m] == nome) {
                 alert('Esse nome de equipe já existe!!');
                 return false;
             }
-            if (token1 == token_usuarios[m] && jogador_fkequipe[m] != null){
+            if (token1 == token_usuarios[m] && jogador_fkequipe[m] != null) {
                 alert('Jogador 1 ja possue uma equipe!!');
                 return false;
             }
-            if (token2 == token_usuarios[m] && jogador_fkequipe[m] != null){
+            if (token2 == token_usuarios[m] && jogador_fkequipe[m] != null) {
                 alert('Jogador 2 ja possue uma equipe!!');
                 return false;
             }
-            if (token3 == token_usuarios[m] && jogador_fkequipe[m] != null){
+            if (token3 == token_usuarios[m] && jogador_fkequipe[m] != null) {
                 alert('Jogador 3 ja possue uma equipe!!');
                 return false;
             }
-            if (token4 == token_usuarios[m] && jogador_fkequipe[m] != null){
+            if (token4 == token_usuarios[m] && jogador_fkequipe[m] != null) {
                 alert('Jogador 4 ja possue uma equipe!!');
                 return false;
             }
-            if (token5 == token_usuarios[m] && jogador_fkequipe[m] != null){
+            if (token5 == token_usuarios[m] && jogador_fkequipe[m] != null) {
                 alert('Jogador 5 ja possue uma equipe!!');
                 return false;
             }
@@ -206,50 +210,50 @@ if (token_usuarios.indexOf(token1) == -1){
 
 
 
-    }
-    inserir();
-}
-
-function tudo(){
-    fetch("/usuarios/listar", {
-    method: "GET",
-}).then(function (resposta) {
-
-
-    resposta.json().then(function (data){
-        let len = data.length;
-
-        for (let i = 0; i <= len; i++){
-        let arquivo = data[i];
-            token_usuarios.push(arquivo.token);
-            token_times.push(arquivo.idEquipe);
-            jogador_fkequipe.push(arquivo.fkEquipe);
-            nome_equipes.push(arquivo.nomeeqp);
-
-
+        }
+        inserir();
     }
 
+    function tudo() {
+        fetch("/usuarios/listar", {
+            method: "GET",
+        }).then(function (resposta) {
+
+
+            resposta.json().then(function (data) {
+                let len = data.length;
+
+                for (let i = 0; i < len; i++) {
+                    let arquivo = data[i];
+                    token_usuarios.push(arquivo.token);
+                    token_times.push(arquivo.idEquipe);
+                    jogador_fkequipe.push(arquivo.fkEquipe);
+                    nome_equipes.push(arquivo.nomeeqp);
+
+
+                }
 
 
 
 
-    
 
 
-    
-    });
-}).catch(function(error){
-    console.error(`ERROR`, error);
-});
-}
 
 
-    function inserir_jogadores(){
-                setTimeout( insert_jogador1(), 5000);
-                setTimeout( insert_jogador2(), 5000);
-                setTimeout( insert_jogador3(), 5000);
-                setTimeout( insert_jogador4(), 5000);
-                setTimeout( insert_jogador5(), 5000);
+
+            });
+        }).catch(function (error) {
+            console.error(`ERROR`, error);
+        });
+    }
+
+
+    function inserir_jogadores() {
+        setTimeout(insert_jogador1(), 5000);
+        setTimeout(insert_jogador2(), 5000);
+        setTimeout(insert_jogador3(), 5000);
+        setTimeout(insert_jogador4(), 5000);
+        setTimeout(insert_jogador5(), 5000);
     }
 
 
@@ -271,8 +275,7 @@ function tudo(){
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 1!");
             }
-        }).catch(function (resposta) {
-        });
+        }).catch(function (resposta) {});
 
     }
 
@@ -289,10 +292,10 @@ function tudo(){
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 2!");
             }
-        }).catch(function (resposta) {
-        });
+        }).catch(function (resposta) {});
 
     }
+
     function insert_jogador3() {
         fetch("/usuarios/insertj3", {
             method: "POST",
@@ -306,10 +309,10 @@ function tudo(){
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
-        }).catch(function (resposta) {
-        });
+        }).catch(function (resposta) {});
 
     }
+
     function insert_jogador4() {
         fetch("/usuarios/insertj4", {
             method: "POST",
@@ -323,10 +326,10 @@ function tudo(){
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 4!");
             }
-        }).catch(function (resposta) {
-        });
+        }).catch(function (resposta) {});
 
     }
+
     function insert_jogador5() {
         fetch("/usuarios/insertj5", {
             method: "POST",
@@ -341,26 +344,24 @@ function tudo(){
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro do jogador 5!");
             }
-        }).catch(function (resposta) {
-        });
+        }).catch(function (resposta) {});
 
     }
 
-    function inserir(){
+    function inserir() {
         fetch("/usuarios/cadastrar2", {
             method: "POST",
             body: formulario
         }).then(function (resposta) {
-            
+
             if (resposta.ok) {
                 inserir_jogadores();
                 alert("Cadastro de time realizado com sucesso!");
                 window.location = "times.html";
-                
+
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
-        }).catch(function (resposta) {
-        });
+        }).catch(function (resposta) {});
     }
 </script>

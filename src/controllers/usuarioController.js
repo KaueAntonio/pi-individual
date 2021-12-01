@@ -64,14 +64,14 @@ function listar3(req, res) {
 
 function entrar (req, res) {
     var email = req.body.email;
-    var senha = req.body.token;
+    var token = req.body.token;
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
+    } else if (token == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        usuarioModel.entrar(email, senha)
+        usuarioModel.entrar(email, token)
         .then(
             function (resultado) {
                 console.log(`\nResultados encontrados: ${resultado.length}`);

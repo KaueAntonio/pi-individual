@@ -2,6 +2,13 @@ create database projetoindividual;
 
 use projetoindividual;
 SET SQL_SAFE_UPDATES = 0;
+
+CREATE TABLE equipe (
+idEquipe VARCHAR(30) PRIMARY KEY,
+nomeeqp VARCHAR(25),
+steamResp VARCHAR(30)
+);
+
 create table usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(30),
@@ -15,12 +22,19 @@ fkEquipe varchar(30),
 FOREIGN KEY (fkEquipe) REFERENCES equipe(idEquipe)
 );
 
-CREATE TABLE equipe (
-idEquipe VARCHAR(30) PRIMARY KEY,
-nomeeqp VARCHAR(25),
-steamResp VARCHAR(30)
-);
 
+CREATE TABLE avaliacoes (
+idAvaliacao INT PRIMARY KEY AUTO_INCREMENT,
+titulo VARCHAR(30),
+num_estrelas INT,
+mensagem VARCHAR(150),
+dia INT,
+mes INT,
+ano INT,
+fkJogador INT,
+FOREIGN KEY (fkJogador) REFERENCES usuario(idUsuario)
+
+);
 
 INSERT INTO usuario (nome, email, idade, steam, patente, nick, token) VALUES
 ('Kaue Antonio', 'kaue36123@gmail.com', 20, 'mandrakaodelas', 'Supremo', 'MaNdRaKe', 'kaue@123'),

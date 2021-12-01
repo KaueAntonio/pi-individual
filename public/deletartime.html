@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
-    <script src="./assets/js/funcoes.js"></script>
     <title>Deletar</title>
     <style>
         body{
@@ -26,6 +25,7 @@
             <a class="acor" href="index.html">Home</a>
             <a href="tirar-time.html">Tirar Times</a>
             <a href="times.html">Times</a>
+            <a href="avalie.html">Avalie</a>
             <a href="jogadores.html">Jogadores</a>   
             <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>   
         </span>
@@ -95,6 +95,7 @@ var nome = '';
 
 
             if (resposta.ok) {
+                deletar_time2();
             } else {
                 throw("Houve um erro ao tentar excluir o time!");
             }
@@ -102,7 +103,6 @@ var nome = '';
             console.log(`#ERRO: ${resposta}`);
         });
 
-        deletar_time2();
     }
 
 
@@ -143,7 +143,7 @@ var nome = '';
     resposta.json().then(function (data){
         let len = data.length;
 
-        for (let i = 0; i <= len; i++){
+        for (let i = 0; i < len; i++){
         let arquivo = data[i];
             tokeneqp.push(arquivo.idEquipe);
             nome_equipe.push(arquivo.nomeeqp);

@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body onload="get_data()">
+<body onload="metricas(), avaliacoes_geral()">
     <div class="menutopo">
         <div class="container">
 
@@ -31,11 +31,12 @@
             <a href="tirar-time.html">Tirar Times</a>
             <a href="jogadores.html">Jogadores</a>
             <a href="times.html">Times</a>
+            <a href="avalie.html">Avalie</a>
             <a href="cadastro.html" style="float: right;">Cadastrar Jogador</a>
             <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>
         </span>
     </div>
-    <div class="container2" style="height: 100vh;">
+    <div class="container2" style="height: auto;">
         <div class="content">
             <h1 class="title_free">&ensp;Bem Vindo a UnitedGamers!!</h1>
             <h3 class="title2_free">&ensp;Está cansado de jogar sozinho e está procurando alguém para fazer companhia?
@@ -51,7 +52,14 @@
                     <div class="graf1">
                         <canvas id="myChart"></canvas>
                     </div>
-                </div>
+                </div><br><br>
+                <h1 style="color: white;">Acompanhe a Avaliação de Outros jogadores</h1>
+        <div id="resultados" style="display: flex;
+        flex-direction: row;
+        flex-wrap: wrap; margin-top: 30px;"  data-aos = "fade-up" data-aos-delay = "500" data-aos-duration = "1000">
+        </div>
+        
+    
         </div>
     </div>
 </body>
@@ -62,10 +70,9 @@
     var meio;
     var fim;
     var minuto;
-
     var len;
 
-    function get_data() {
+    function metricas() {
 
         fetch("/usuarios/listar", {
             method: "GET",
@@ -74,7 +81,12 @@
             resposta.json().then(function (data) {
 
                 len = data.length;
-                meio = len / 2;
+                if (len % 2 == 0){
+
+                    meio = len / 2;
+                }else{
+                    meio = (len - 1) / 2;
+                }
                 fim = len;
                 document.getElementById('jog').innerHTML = len;
                 grafico();
@@ -116,6 +128,62 @@
                 }
             }
         });
+
+
     }
 
+
+
+
+
+
+
+
+
+function avaliacoes_geral(){
+
+    fetch("/avaliacoes/listar", {
+        method: "GET",
+    }).then(function (resposta) {
+        resultados.innerHTML = (`<div class="container_avaliacao"><h1>Ainda não foram feitas avaliações!!</h1></div>`);
+        
+    
+        
+      
+        resposta.json().then(function (data) {
+
+let len = data.length;
+resultados.innerHTML = '';
+
+for (let i = 0; i < len; i++) {
+    let arquivo = data[i];
+    let estrelas = ["./fotos/star.png", "./fotos/star.png", "./fotos/star.png",
+        "./fotos/star.png", "./fotos/star.png"
+    ];
+    let est = arquivo.estrelinhas;
+   
+    for (let j = 0; j < est; j++) {
+        estrelas[j] = "./fotos/stary.png";
+    }
+
+    resultados.innerHTML += (`<div class="container_avaliacao">
+<div class="container_estrelas" style="display: flex; align-items: center; flex-direction: row;">
+<img class="avaliacao_estrela" src="${estrelas[0]}" alt="">
+<img class="avaliacao_estrela" src="${estrelas[1]}" alt="">
+<img class="avaliacao_estrela" src="${estrelas[2]}" alt="">
+<img class="avaliacao_estrela" src="${estrelas[3]}" alt="">
+<img class="avaliacao_estrela" src="${estrelas[4]}" alt="">
+</div>
+<br>
+<b style="padding: 6px;">${arquivo.titulo}</b><br><br>
+${arquivo.mensagem}<br><br>
+<h4 style="margin-left: 20px; ">${arquivo.nome}
+ ${arquivo.dia}/${arquivo.mes}/${arquivo.ano}</h4>
+</div><br><br>`);
+}
+});
+}).catch(function (error) {
+console.error(`ERROR`, error);
+});
+}
 </script>

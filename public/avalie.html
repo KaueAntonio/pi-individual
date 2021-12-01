@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+    <title>Avalie</title>
+    <style>
+        body {
+            background: url('./fotos/glock.png')no-repeat center center fixed;
+            background-size: cover;
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<style>
+
+
+</style>
+
+<script>
+
+</script>
+<body class="body3" onload="informacoes()">
+    
+    <header>
+        <div class="menutopo">
+            <div class="container">
+    
+                <img src="./fotos/logo.png" class="foto_logo"></img>
+            </div>
+            <span class="textolink">
+                <a class="acor" href="index.html">Home</a>
+                <a href="tirar-time.html">Tirar Times</a>
+                <a href="times.html">Times</a>
+                <a href="jogadores.html">Jogadores</a>   
+                <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>   
+            </span>
+        </div>
+    </header>
+    <div class="login-page" id="tela_cadastro">
+        <div class="formulario">
+            <div class="form">
+                <form action="" id="form_avaliacao">
+                    <h2>Avalie a UnitedGamers! </h2>
+                    <br>
+                    <p>
+                        Título: <br><br>
+                        <input name="titulo" class="inputt" type="text" placeholder="Título">
+                    </p>
+                    <p>
+                        Nota 0-5: <br><br>
+                        <input name="nota" class="inputt" type="Number" placeholder="5">
+                    </p>
+                    <p>
+                        Mensagem: <br/><br>
+                        <textarea name="mensagem" class="inputt" type="text" placeholder="Mensagem" style="word-wrap: break-word; height: auto; width: 300px;"></textarea>
+                    </p>
+                    <input type="text" id="fk" name="fkUsuario" style="display: none;">
+                </form>
+                    <p>
+                        <button class="btnin" onclick="enviar()" style="width: 150px;">Enviar Avaliação</button>
+                    </p>
+        </div>
+        </div>
+        <div id="div_aguardar" class="loading-div">
+            
+        </div>
+
+        <div id="div_erros_login">
+            
+        </div>
+    </div>
+    
+    
+    
+</body>
+
+</html>
+<script>
+    function enviar(){
+    
+        
+        
+        var formulario = new URLSearchParams(new FormData(document.getElementById('form_avaliacao')));
+        
+        if (fks.indexOf(Number(sessionStorage.ID_USUARIO)) != -1){
+            alert('Você já fez uma avaliação!!');
+            deslogar();
+            window.location = 'index.html';
+            return false;
+        }
+    var titulo = formulario.get('titulo');
+    var nota = formulario.get('nota');
+    var mensagem = formulario.get('mensagem');
+    var fkUsuario = formulario.get('fkUsuario');
+
+    
+        if(titulo.length > 45){
+            alert('Título muito grande!!');
+            return false;
+        }
+        if (nota < 0 || nota > 5){
+            alert('Nota tem que ser entre 0 e 5!!');
+            return false;
+        }
+
+        if (mensagem.length > 150){
+            alert('A mensagem tem um limite de 150 caracteres!!');
+            return false;
+        }
+
+        fetch("/avaliacoes/enviar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Avaliação enviada com sucesso!!");
+               deslogar();
+                window.location = "index.html";
+            } else {
+                throw("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+    
+
+    function validarSessao() {
+        // aguardar();
+
+        var email = sessionStorage.EMAIL_USUARIO;
+        var token = sessionStorage.TOKEN_USUARIO;
+        
+        var fk_Usuario = sessionStorage.ID_USUARIO;
+
+        if (email != null && token != null) {
+            // finalizarAguardar();
+
+
+            document.getElementById('fk').value = fk_Usuario;
+
+        } else {
+            alert('Para dar um FeedBack você precisa autenticar sua sessão!');
+            window.location = "login.html";
+        }
+    }
+    validarSessao();
+    var fks = [];
+    function deslogar() {
+        delete sessionStorage.EMAIL_USUARIO;
+      delete sessionStorage.TOKEN_USUARIO;
+        
+     delete  sessionStorage.ID_USUARIO;
+
+    }
+
+
+    function informacoes(){
+        fetch("/avaliacoes/listar", {
+        method: "GET",
+    }).then(function (resposta) {
+
+
+        resposta.json().then(function (data) {
+            let len = data.length;
+            
+            for (let i = 0; i < len; i++){
+                let arquivo = data[i];
+                fks.push(arquivo.fkJogador);
+            }
+            
+        });
+    }).catch(function (error) {
+        console.error(`ERROR`, error);
+    });
+    }
+    
+</script>

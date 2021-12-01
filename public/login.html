@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./fotos/csgo-icon-42843-Windows.ico">
+    <style>
+        body {
+            background: url('./fotos/ak47.png')no-repeat center center fixed;
+            background-size: cover;
+            overflow: scroll;
+        }
+    </style>
+    <title>Login de Jogador</title>
+</head>
+
+<body onload="tudo()">
+    <div class="menutopo">
+        <div class="container">
+
+            <img src="./fotos/logo.png" class="foto_logo"></img>
+        </div>
+        <span class="textolink">
+            <a class="acor" href="index.html">Home</a>
+            <a href="tirar-time.html">Tirar Times</a>
+            <a href="times.html">Times</a>
+            <a href="avalie.html">Avalie</a>
+            <a href="jogadores.html">Jogadores</a>
+            <a href="cadastrotime.html" style="float: right;">Cadastrar Time</a>
+        </span>
+    </div>
+
+    <div class="login-page" id="tela_cadastro">
+        <div class="formulario">
+            <div class="form">
+                <h2>Autenticar Sessão</h2><br><br>
+                <form class="register-form" id="form_cadastro">
+                    <p>E-mail</p>
+                    <input class="inputt" name="email" type="text" placeholder="Email">
+                    <br>
+                    <p>Token <br></p>
+                    <input class="inputt" name="token" type="text" placeholder="023632054">
+                    <br>
+                </form>
+                <button class="btnin" onclick="login()">Login</button>
+            </div>
+        </div>
+       
+    </div>
+</body>
+
+</html>
+<script>
+    var email;
+    var token;
+    var token_usuarios = [];
+    var email_usuarios = [];
+    var steam_usuarios = [];
+    var formulario;
+
+    function login() {
+
+        formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        email = formulario.get("email");
+        token = formulario.get("token");
+
+
+
+        validar();
+
+
+    }
+
+
+    function tudo() {
+        fetch("/usuarios/listar", {
+            method: "GET",
+        }).then(function (resposta) {
+
+
+            resposta.json().then(function (data) {
+                let len = data.length;
+
+                for (let i = 0; i < len; i++) {
+                    let arquivo = data[i];
+                    token_usuarios.push(arquivo.token);
+                    email_usuarios.push(arquivo.email);
+                }
+
+            });
+        }).catch(function (error) {
+            console.error(`ERROR`, error);
+        });
+
+
+
+
+    }
+
+    function validar() {
+
+        if (email == "" || token == '') {
+
+            window.alert("Preencha todos os campos para prosseguir!");
+
+            if (email == "") {
+                alert('email está em branco');
+            }
+            if (token == "") {
+                alert('token está em branco');
+            }
+            return false;
+        }
+
+
+
+        if (token_usuarios.indexOf(token) == -1) {
+            alert('Esse token não existe!!');
+            return false;
+        } else {
+
+        }
+        if (email_usuarios.indexOf(email) > -1) {
+
+        } else {
+            alert('Email não cadastrado!!');
+            return false;
+        }
+
+        for (let i = 0; i < token_usuarios.length; i++){
+            if ((token_usuarios[i] == token) && (email == email_usuarios[i])){
+                return entrar();
+            }
+            
+        }
+       
+                alert('Credenciais Não Correspondem');
+                return false;
+
+            
+
+    }
+
+    function entrar() {
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.TOKEN_USUARIO = json.token;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    setTimeout(function () {
+                        alert(
+                            `Olá ${sessionStorage.NOME_USUARIO}, seja bem vindo!`);
+                        window.location = "./avalie.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+
+    }
+</script>
